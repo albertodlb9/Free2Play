@@ -33,6 +33,7 @@
                     apellido2 VARCHAR(50),
                     email VARCHAR(100) NOT NULL UNIQUE,
                     password VARCHAR(255) NOT NULL,
+                    salt INT,
                     rol ENUM('admin', 'usuario'),
                     telefono VARCHAR(20),
                     direccion VARCHAR(255),
