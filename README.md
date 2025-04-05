@@ -1,4 +1,5 @@
 # Free2Play
+
 Este es un proyecto de desarrollo web que tiene como objetivo crear una plataforma donde los usuarios puedan calificar y opinar sobre videojuegos. Los usuarios podrán dejar reseñas, comentarios sobre las reseñas y ver las calificaciones generales de los videojuegos en la plataforma.
 
 ## Descripción
@@ -23,9 +24,6 @@ El backend de la aplicación está desarrollado en **PHP puro**, mientras que el
 - **Herramientas adicionales**:
   - Docker (para contenedores)
   - Composer (gestión de dependencias en PHP)
-
-## Estructura del Proyecto
-/proyecto │ ├── /backend │ ├── /controllers # Controladores de la API │ ├── /models # Modelos de la base de datos │ ├── /config # Configuración de la base de datos y otros ajustes │ ├── /public # Archivos públicos como index.php │ └── /api.php # Punto de entrada de la API │ ├── /frontend │ ├── /src │ │ ├── /components # Componentes React │ │ ├── /views # Vistas principales (home, videojuego, reseñas) │ │ └── /App.js # Componente principal de React │ └── /public # Archivos públicos de React (index.html, etc.) │ └── /docker # Configuración de Docker (Dockerfile, docker-compose.yml)
 
 ## Base de Datos
 
