@@ -21,7 +21,7 @@ class Db {
         $resArray = array();
         $res = $this->db->query($sql);
         if ($res) {
-            $resArray = $res->fetch_all(MYSQLI_ASSOC); // Corrección aquí
+            $resArray = $res->fetch_all(MYSQLI_ASSOC);
             $res->free();
         } else {
             die("Error en la consulta: " . $this->db->error);
