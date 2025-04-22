@@ -7,8 +7,7 @@
         public $nombre;
         public $empresa;
 
-        public function __construct($id, $nombre, $empresa) {
-            $this->id = $id;
+        public function __construct($nombre=null, $empresa=null) {
             $this->nombre = $nombre;
             $this->empresa = $empresa;
         }

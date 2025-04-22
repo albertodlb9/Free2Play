@@ -3,7 +3,7 @@ require_once '../controllers/dbController.php';
 class Model {
     protected $table;
     protected $db = new Db();
-    protected $conexion = $this->db->crearConexion();
+    protected static $conexion = $this->db->crearConexion();
 
     public function getAll(){
         $sql = "SELECT * FROM $this->table";

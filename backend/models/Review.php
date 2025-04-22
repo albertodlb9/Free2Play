@@ -11,8 +11,7 @@
         public $puntuacion;
         public $fecha;
 
-        public function __construct($id, $usuario_id, $videojuego_id, $titulo, $contenido, $puntuacion, $fecha) {
-            $this->id = $id;
+        public function __construct($usuario_id=null, $videojuego_id=null, $titulo=null, $contenido=null, $puntuacion=null, $fecha=null) {
             $this->usuario_id = $usuario_id;
             $this->videojuego_id = $videojuego_id;
             $this->titulo = $titulo;

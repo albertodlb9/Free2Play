@@ -15,7 +15,7 @@
         public $avatar;
         public $fecha_registro;
 
-        public function __construct($nombreUsuario, $nombre, $apellido1, $apellido2, $email, $password, $rol, $telefono, $direccion, $avatar) {
+        public function __construct($nombreUsuario = null, $nombre= null, $apellido1= null, $apellido2= null, $email= null, $password= null, $rol= null, $telefono= null, $direccion= null, $avatar= null) {
             $this->nombreUsuario = $nombreUsuario;
             $this->nombre = $nombre;
             $this->apellido1 = $apellido1;

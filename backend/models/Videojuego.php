@@ -11,8 +11,7 @@
         public $portada;
         public $notaMedia;
 
-        public function __construct($id, $titulo, $descripcion, $fecha_lanzamiento, $desarrollador_id, $portada) {
-            $this->id = $id;
+        public function __construct($titulo=null, $descripcion=null, $fecha_lanzamiento=null, $desarrollador_id=null, $portada=null) {
             $this->titulo = $titulo;
             $this->descripcion = $descripcion;
             $this->fecha_lanzamiento = $fecha_lanzamiento;

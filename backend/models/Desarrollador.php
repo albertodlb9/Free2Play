@@ -6,8 +6,7 @@
         public $nombre;
         public $pais;
 
-        public function __construct($id, $nombre, $pais) {
-            $this->id = $id;
+        public function __construct($nombre=null, $pais=null) {
             $this->nombre = $nombre;
             $this->pais = $pais;
         }
