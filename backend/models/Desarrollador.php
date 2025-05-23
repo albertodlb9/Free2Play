@@ -15,13 +15,15 @@
         public function insert() {
             $sql = "INSERT INTO {$this->table} (nombre, pais) VALUES (?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->nombre, $this->pais]);
+            $stmt->bind_param("ss", $this->nombre, $this->pais);
+            return $stmt->execute();
         }
 
         public function update($id) {
             $sql = "UPDATE {$this->table} SET nombre = ?, pais = ? WHERE id = ?";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->nombre, $this->pais, $id]);
+            $stmt->bind_param("ssi", $this->nombre, $this->pais, $id);
+            return $stmt->execute();
         }
     }
 ?>

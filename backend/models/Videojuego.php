@@ -23,13 +23,15 @@
         public function insert() {
             $sql = "INSERT INTO {$this->table} (titulo, descripcion, fecha_lanzamiento, desarrollador_id, portada) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->portada]);
+            $stmt->bind_param("sssis", $this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->portada);
+            return $stmt->execute();
         }
 
         public function update($id) {
             $sql = "UPDATE {$this->table} SET titulo = ?, descripcion = ?, fecha_lanzamiento = ?, desarrollador_id = ?, portada = ? WHERE id = ?";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->portada, $id]);
+            $stmt->bind_param("sssisi", $this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->portada,$id);
+            return $stmt->execute();
         }
     }
 ?>

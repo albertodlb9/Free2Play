@@ -20,13 +20,15 @@
              public function insert() {
                 $sql = "INSERT INTO {$this->table} (usuario_id, review_id, contenido, fecha) VALUES (?, ?, ?, ?)";
                 $stmt = $this->db->db->prepare($sql);
-                return $stmt->execute([$this->usuario_id, $this->review_id, $this->contenido, $this->fecha]);
+                $stmt->bind_param("iiss", $this->usuario_id, $this->review_id, $this->contenido, $this->fecha);
+                return $stmt->execute();
             }
 
             public function update($id) {
                 $sql = "UPDATE {$this->table} SET usuario_id = ?, review_id = ?, contenido = ?, fecha = ? WHERE id = ?";
                 $stmt = $this->db->db->prepare($sql);
-                return $stmt->execute([$this->usuario_id, $this->review_id, $this->contenido, $this->fecha, $id]);
+                $stmt->bind_param("iissi", $this->usuario_id, $this->review_id, $this->contenido, $this->fecha, $id);
+                return $stmt->execute();
             }
     }
     

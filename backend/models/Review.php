@@ -24,13 +24,15 @@
         public function insert() {
             $sql = "INSERT INTO {$this->table} (usuario_id, videojuego_id, titulo, contenido, puntuacion, fecha) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha]);
+            $stmt->bind_param("iissis", $this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha);
+            return $stmt->execute();
         }
 
         public function update($id) {
             $sql = "UPDATE {$this->table} SET usuario_id = ?, videojuego_id = ?, titulo = ?, contenido = ?, puntuacion = ?, fecha = ? WHERE id = ?";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha, $id]);
+            $stmt->bind_param("iissisi", $this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha, $id);
+            return $stmt->execute();
         }
 
     }

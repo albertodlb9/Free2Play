@@ -32,13 +32,15 @@
         public function insert() {
             $sql = "INSERT INTO {$this->table} (nombre_usuario, nombre, apellido1, apellido2, email, password, rol, telefono, direccion, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->rol, $this->telefono, $this->direccion, $this->avatar]);
+            $stmt->bind_param("ssssssssss", $this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->rol, $this->telefono, $this->direccion, $this->avatar);
+            return $stmt->execute();
         }
 
         public function update($id) {
             $sql = "UPDATE {$this->table} SET nombre_usuario = ?, nombre = ?, apellido1 = ?, apellido2 = ?, email = ?, password = ?, rol = ?, telefono = ?, direccion = ?, avatar = ? WHERE id = ?";
             $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->rol, $this->telefono, $this->direccion, $this->avatar, $id]);
+            $stmt->bind_param("ssssssssssi", $this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->rol, $this->telefono, $this->direccion, $this->avatar, $id);
+            return $stmt->execute();
         }
 
     }
