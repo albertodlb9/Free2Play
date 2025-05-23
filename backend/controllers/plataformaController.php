@@ -16,16 +16,20 @@
             $plataforma->delete($id);
             echo json_encode(array("message" => "Usuario eliminado"));
         }
-        public function store($data){
-            $plataforma = new Plataforma(/*Añadir los datos de la plataforma*/);
+       public function store() {
+            $json = file_get_contents("php://input");
+            $data = json_decode($json, true);
+            $plataforma = new Plataforma($data['nombre'], $data['empresa']);
             $plataforma->insert();
-            echo json_encode(array("message" => "Usuario creado"));
+            echo json_encode(["message" => "Plataforma creada"]);
         }
 
-        public function update($id, $data){
-            $plataforma = new Plataforma(/*Añadir los datos de la plataforma*/);
+        public function update($id) {
+            $json = file_get_contents("php://input");
+            $data = json_decode($json, true);
+            $plataforma = new Plataforma($data['nombre'], $data['empresa']);
             $plataforma->update($id);
-            echo json_encode(array("message" => "Usuario actualizado"));
+            echo json_encode(["message" => "Plataforma actualizada"]);
         }
     }
 ?>

@@ -10,6 +10,7 @@
             public $fecha;
     
             public function __construct($usuario_id=null, $review_id=null, $contenido=null, $fecha=null) {
+                parent::__construct();
                 $this->usuario_id = $usuario_id;
                 $this->review_id = $review_id;
                 $this->contenido = $contenido;

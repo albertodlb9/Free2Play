@@ -11,21 +11,28 @@
             $desarrollador = $desarrollador->get($id);
             echo json_encode($desarrollador);
         }
-        public function delete($id) {
+
+        public function destroy($id) {
             $desarrollador = new Desarrollador();
             $desarrollador->delete($id);
-            echo json_encode(array("message" => "Usuario eliminado"));
-        }
-        public function store($data){
-            $desarrollador = new Desarrollador($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
-            $desarrollador->insert();
-            echo json_encode(array("message" => "Usuario creado"));
+            echo json_encode(["message" => "Desarrollador eliminado"]);
         }
 
-        public function update($id, $data){
-            $desarrollador = new Desarrollador($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
+        public function store() {
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $desarrollador = new Desarrollador($data['nombre'], $data['pais']);
+            $desarrollador->insert();
+            echo json_encode(["message" => "Desarrollador creado"]);
+        }
+
+        public function update($id) {
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $desarrollador = new Desarrollador($data['nombre'], $data['pais']);
             $desarrollador->update($id);
-            echo json_encode(array("message" => "Usuario actualizado"));
+            echo json_encode(["message" => "Desarrollador actualizado"]);
         }
     }
+
 ?>

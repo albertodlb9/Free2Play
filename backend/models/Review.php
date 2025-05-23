@@ -12,6 +12,7 @@
         public $fecha;
 
         public function __construct($usuario_id=null, $videojuego_id=null, $titulo=null, $contenido=null, $puntuacion=null, $fecha=null) {
+            parent::__construct();
             $this->usuario_id = $usuario_id;
             $this->videojuego_id = $videojuego_id;
             $this->titulo = $titulo;
@@ -32,10 +33,5 @@
             return $stmt->execute([$this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha, $id]);
         }
 
-        public function delete($id) {
-            $sql = "DELETE FROM {$this->table} WHERE id = ?";
-            $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$id]);
-        }
     }
 ?>

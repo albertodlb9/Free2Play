@@ -14,7 +14,7 @@
         public function delete($id) {
             $comentario = new Comentario();
             $comentario->delete($id);
-            echo json_encode(array("message" => "Usuario eliminado"));
+            echo json_encode(["message" => "Comentario eliminado"]);
         }
         public function store(){
              $json = file_get_contents('php://input');

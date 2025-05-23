@@ -16,6 +16,7 @@
         public $fecha_registro;
 
         public function __construct($nombreUsuario = null, $nombre= null, $apellido1= null, $apellido2= null, $email= null, $password= null, $rol= null, $telefono= null, $direccion= null, $avatar= null) {
+            parent::__construct();
             $this->nombreUsuario = $nombreUsuario;
             $this->nombre = $nombre;
             $this->apellido1 = $apellido1;
@@ -39,11 +40,6 @@
             $stmt = $this->db->db->prepare($sql);
             return $stmt->execute([$this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->rol, $this->telefono, $this->direccion, $this->avatar, $id]);
         }
-        
-        public function delete($id) {
-            $sql = "DELETE FROM {$this->table} WHERE id = ?";
-            $stmt = $this->db->db->prepare($sql);
-            return $stmt->execute([$id]);
-        }
+
     }
 ?>
