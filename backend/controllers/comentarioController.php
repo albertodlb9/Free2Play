@@ -16,16 +16,26 @@
             $comentario->delete($id);
             echo json_encode(array("message" => "Usuario eliminado"));
         }
-        public function store($data){
-            $comentario = new Comentario($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
-            $comentario->insert();
-            echo json_encode(array("message" => "Usuario creado"));
+        public function store(){
+             $json = file_get_contents('php://input');
+             $data = json_decode($json, true);
+             $comentario = new Comentario($data['usuario_id'], $data['review_id'], $data['contenido'], $data['fecha']);
+             $comentario->insert();
+    echo     json_encode(["message" => "Comentario creado"]);
         }
 
-        public function update($id, $data){
-            $comentario = new Comentario($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
+        public function update($id){
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $comentario = new Comentario($data['usuario_id'], $data['review_id'], $data['contenido'], $data['fecha']);
             $comentario->update($id);
-            echo json_encode(array("message" => "Usuario actualizado"));
+            echo json_encode(["message" => "Comentario actualizado"]);
+        }
+
+        public function destroy($id){
+            $comentario = new Comentario();
+            $comentario->delete($id);
+            echo json_encode(["message" => "Comentario eliminado"]);
         }
     }
 ?>

@@ -2,9 +2,13 @@
 require_once '../controllers/dbController.php';
 class Model {
     protected $table;
-    protected $db = new Db();
-    protected static $conexion = $this->db->crearConexion();
-
+    protected $db;
+    
+    public function __construct() {
+        $this->db = new Db();
+        $this->db->crearConexion();
+    }
+    
     public function getAll(){
         $sql = "SELECT * FROM $this->table";
         return $this->db->consultaSelect($sql);

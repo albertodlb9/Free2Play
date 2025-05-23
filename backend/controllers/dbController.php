@@ -31,7 +31,7 @@ class Db {
 
     function manipulacionDatos($sql) {
         $this->db->query($sql);
-        return $this->db->affected_rows; // Corrección aquí
+        return $this->db->affected_rows; 
     }
 }
 ?>

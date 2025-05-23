@@ -19,5 +19,23 @@
             $this->puntuacion = $puntuacion;
             $this->fecha = $fecha;
         }
+
+        public function insert() {
+            $sql = "INSERT INTO {$this->table} (usuario_id, videojuego_id, titulo, contenido, puntuacion, fecha) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $this->db->db->prepare($sql);
+            return $stmt->execute([$this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha]);
+        }
+
+        public function update($id) {
+            $sql = "UPDATE {$this->table} SET usuario_id = ?, videojuego_id = ?, titulo = ?, contenido = ?, puntuacion = ?, fecha = ? WHERE id = ?";
+            $stmt = $this->db->db->prepare($sql);
+            return $stmt->execute([$this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha, $id]);
+        }
+
+        public function delete($id) {
+            $sql = "DELETE FROM {$this->table} WHERE id = ?";
+            $stmt = $this->db->db->prepare($sql);
+            return $stmt->execute([$id]);
+        }
     }
 ?>
