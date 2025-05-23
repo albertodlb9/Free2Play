@@ -11,7 +11,7 @@
             $plataforma = $plataforma->get($id);
             echo json_encode($plataforma);
         }
-        public function delete($id) {
+        public function destroy($id) {
             $plataforma = new Plataforma();
             $plataforma->delete($id);
             echo json_encode(array("message" => "Usuario eliminado"));

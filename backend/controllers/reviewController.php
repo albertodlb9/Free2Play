@@ -11,21 +11,27 @@
             $review = $review->get($id);
             echo json_encode($review);
         }
-        public function delete($id) {
+
+        public function destroy($id) {
             $review = new Review();
             $review->delete($id);
-            echo json_encode(array("message" => "Usuario eliminado"));
-        }
-        public function store($data){
-            $review = new Review(/*añadir datos de review*/);
-            $review->insert();
-            echo json_encode(array("message" => "Usuario creado"));
+            echo json_encode(["message" => "Review eliminado"]);
         }
 
-        public function update($id, $data){
-            $review = new Review(/*añadir datos de review*/);
+        public function store() {
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $review = new Review($data['usuario_id'], $data['videojuego_id'], $data['titulo'], $data['contenido'], $data['puntuacion'], $data['fecha']);
+            $review->insert();
+            echo json_encode(["message" => "Review creado"]);
+        }
+
+        public function update($id) {
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $review = new Review($data['usuario_id'], $data['videojuego_id'], $data['titulo'], $data['contenido'], $data['puntuacion'], $data['fecha']);
             $review->update($id);
-            echo json_encode(array("message" => "Usuario actualizado"));
+            echo json_encode(["message" => "Review actualizado"]);
         }
     }
 ?>
