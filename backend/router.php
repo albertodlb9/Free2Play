@@ -1,16 +1,19 @@
 <?php
     // Aqui voy a poner las rutas de mi api
-    require_once "./controllers/comentarioController.php";
-    require_once "./controllers/reviewController.php";
-    require_once "./controllers/usuarioController.php";
-    require_once "./controllers/plataformaController.php";
-    require_once "./controllers/videojuegoController.php";
-    require_once "./controllers/desarrolladorController.php";
+    require_once __DIR__."/controllers/reviewController.php";
+    require_once __DIR__."/controllers/usuarioController.php";
+    require_once __DIR__."/controllers/plataformaController.php";
+    require_once __DIR__."/controllers/videojuegoController.php";
+    require_once __DIR__."/controllers/desarrolladorController.php";
 
     $url = $_SERVER['REQUEST_URI'];
-    $api = explode('/', $url)[2];
-    $partesUrl = explode('/', $url);
-
+    $pos = strpos($url, '/public/');
+    $rutaRelativa = substr($url, $pos + strlen('/public/'));
+    $api = explode('/', $rutaRelativa)[2];
+    $partesUrl = explode('/', $rutaRelativa);
+    echo json_encode($partesUrl);
+    echo json_encode($url);
+    echo json_encode($rutaRelativa);
     $metodo = $_SERVER['REQUEST_METHOD'];
 
     if($api === 'comentarios'){
@@ -57,7 +60,7 @@
         } elseif($metodo === 'POST' && count($partesUrl) === 3){
             $usuarioController->store();
         } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'login'){
-            $usuarioController->login();
+            //$usuarioController->login();
         } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $usuarioController->update($partesUrl[3]);
         } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
