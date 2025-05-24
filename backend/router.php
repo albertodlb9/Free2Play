@@ -59,16 +59,17 @@
         echo "usuarios";
         $usuarioController = new UsuarioController();
         if($metodo === 'GET' && $url === "/api/usuarios"){
-            echo "index";
             $usuarioController->index();
-            
-        } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'GET' && $url === "/api/usuarios/loged"){
+            $usuarioController->verificarToken();
+        }
+        elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $usuarioController->show($id);
         } elseif($metodo === 'POST' && count($partesUrl) === 3){
             $usuarioController->store();
         } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'login'){
-            //$usuarioController->login();
+            $usuarioController->login();
         } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $usuarioController->update($partesUrl[3]);
         } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
