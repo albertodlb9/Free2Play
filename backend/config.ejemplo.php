@@ -5,5 +5,5 @@
     define('DB_NAME', '');
     define('DB_PORT', '');
     define('DB_DRIVER', '');
-    define('clave_secreta', '');
+    define('CLAVE_SECRETA', '');
 ?>
