@@ -1,1 +1,49 @@
-<html>hola</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE2PLAY-Login</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
+</head>
+<body>
+    <header>
+    <nav>
+    <h1 hidden>FREE2PLAY</h1>
+    <a href="./index"><img src="./images/logo.png" alt="FREE2PLAY Logo" class="logo" /></a>
+    <ul>
+        <li><a href="./videojuegos">Videojuegos</a></li>
+        <li><a href="./registro">Registrarse</a></li>
+        <div class="buscador">
+        <input type="text" id="busqueda" placeholder="Buscar videojuegos..." />
+        <ul id="resultados"></ul>
+        </div>
+    </ul>
+    </nav>
+    </header>
+    <main>
+        <section class="login-container">
+            <h2>Iniciar sesión</h2>
+            <form id="formularioLogin">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" class="btn">Iniciar sesión</button>
+                <p class="registro-link">¿No tienes cuenta? <a href="./registro">Regístrate aquí</a></p>
+            </form>
+            <p id="errorMensaje" style="color: #f44336; margin-top: 1rem; display: none;"></p>
+            <div class="social-login">
+                <p>O inicia sesión con:</p>
+                <button class="btn google">Google</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 FREE2PLAY. Hecho por <a href="https://github.com/albertodlb9">@albertodlb9</a>.</p>
+    </footer>
+
+    <script src="./js/login.js"></script>
+</body>
+</html>

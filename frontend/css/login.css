@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+a {
+  color: #80cbc4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background-color: #1f1f1f;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #333;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 200px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  font-weight: bold;
+}
+
+/* MAIN LOGIN */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+  min-height: calc(100vh - 160px); /* Ajuste según el tamaño del header+footer */
+}
+
+.login-container {
+  background-color: #1f1f1f;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.login-container h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #cccccc;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 0.6rem;
+  margin-bottom: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+input:focus {
+  background-color: #333;
+  outline: none;
+}
+
+.btn {
+  background-color: #80cbc4;
+  color: #121212;
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #4db6ac;
+}
+
+.registro-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.social-login {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.social-login .btn.google {
+  background-color: #db4437;
+  color: #fff;
+  margin-top: 0.5rem;
+}
+
+.social-login .btn.google:hover {
+  background-color: #c33d2f;
+}
+
+/* FOOTER */
+footer {
+  background-color: #1f1f1f;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #333;
+  color: #888;
+  font-size: 0.9rem;
+}

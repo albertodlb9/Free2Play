@@ -151,3 +151,58 @@ footer {
   color: #888;
   font-size: 0.9rem;
 }
+
+.buscador {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#busqueda {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  font-size: 1rem;
+  width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+#busqueda::placeholder {
+  color: #888;
+}
+
+#busqueda:focus {
+  background-color: #333;
+}
+
+#resultados {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin-top: 0.3rem;
+}
+
+#resultados li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  color: #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+#resultados li:hover {
+  background-color: #333;
+}
+

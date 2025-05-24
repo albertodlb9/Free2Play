@@ -71,27 +71,37 @@
             echo json_encode(["message" => "Usuario actualizado"]);
         }
 
+        
         public function login() {
             if (isset($_COOKIE['token'])) {
                 http_response_code(400);
                 echo json_encode(["message" => "Ya estás logueado"]);
                 return;
             }
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
+            return json_encode(["message" => "Método no implementado"]);
+            // Aquí ya no usamos file_get_contents ni json_decode
+            $nombreUsuario = $_POST['username'] ?? null;
+            $password = $_POST['password'] ?? null;
+
+            if (!$nombreUsuario || !$password) {
+                http_response_code(400);
+                echo json_encode(["message" => "Datos incompletos"]);
+                return;
+            }
+
             $usuario = new Usuario();
-            $usuario = $usuario->buscarPorUsuario($data['nombreUsuario']);
-            if ($usuario && password_verify($data['password'], $usuario->password)) {
+            $usuario = $usuario->buscarPorUsuario($nombreUsuario);
+            if ($usuario && password_verify($password, $usuario->password)) {
                 $payload = [
-                            "iss" => "http://localhost",           
-                            "sub" => $usuario->id,        
-                            "iat" => time(),                       
-                            "exp" => time() + 604800*3,                
-                            "data" => [
-                                "username" => $usuario->nombreUsuario,
-                                "rol" => $usuario->rol,
-                            ]
-                        ];
+                    "iss" => "http://localhost",
+                    "sub" => $usuario->id,
+                    "iat" => time(),
+                    "exp" => time() + 604800*3,
+                    "data" => [
+                        "username" => $usuario->nombreUsuario,
+                        "rol" => $usuario->rol,
+                    ]
+                ];
                 $jwt = JWT::encode($payload, CLAVE_SECRETA, 'HS256');
                 setcookie("token", $jwt, time() + 604800*3, "/", "", false, true);
                 echo json_encode(["message" => "Login exitoso", "usuario" => $usuario]);
@@ -100,6 +110,7 @@
                 echo json_encode(["message" => "Credenciales incorrectas"]);
             }
         }
+
 
         public function logout() {
             setcookie("token", "", time() - 3600, "/", "", false, true);
