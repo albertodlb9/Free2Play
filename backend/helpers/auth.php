@@ -20,7 +20,7 @@ function verificarTokenYRol(...$roles) {
             return false;
         }
 
-        return true;
+        return $payload; 
 
     } catch (Exception $e) {
         http_response_code(401);

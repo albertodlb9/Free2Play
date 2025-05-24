@@ -8,24 +8,47 @@
 
     class UsuarioController {
         public function index() {
+            $payload = verificarTokenYRol("admin");
+            if(!$payload) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
             $usuario = new Usuario();
             $usuarios = $usuario->getAll();
             echo json_encode($usuarios);
         }
 
         public function show($id) {
+            $payload = verificarTokenYRol("admin","usuario");
+            if(!$payload || $payload->sub != $id) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
             $usuario = new Usuario();
             $usuario = $usuario->get($id);
             echo json_encode($usuario);
         }
 
         public function destroy($id) {
+            $payload = verificarTokenYRol("admin","usuario");
+            if(!$payload || $payload->sub != $id) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
             $usuario = new Usuario();
             $usuario->delete($id);
             echo json_encode(["message" => "Usuario eliminado"]);
         }
 
         public function store() {
+            if (isset($_COOKIE['token'])) {
+                http_response_code(400);
+                echo json_encode(["message" => "Ya estás logueado"]);
+                return;
+            }
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
             $usuario = new Usuario($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
@@ -34,6 +57,13 @@
         }
 
         public function update($id) {
+            $payload = verificarTokenYRol("admin","usuario");
+            if(!$payload || $payload->sub != $id) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
+            
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
             $usuario = new Usuario($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
@@ -42,6 +72,11 @@
         }
 
         public function login() {
+            if (isset($_COOKIE['token'])) {
+                http_response_code(400);
+                echo json_encode(["message" => "Ya estás logueado"]);
+                return;
+            }
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
             $usuario = new Usuario();

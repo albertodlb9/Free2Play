@@ -1,5 +1,7 @@
 <?php
     require_once __DIR__ . '/../models/Desarrollador.php';
+    require_once __DIR__ . '/../helpers/auth.php';
+    
     class DesarrolladorController {
         public function index() {
             $desarrollador = new Desarrollador();
@@ -14,12 +16,22 @@
         }
 
         public function destroy($id) {
+            if(!verificarTokenYRol("admin")) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
             $desarrollador = new Desarrollador();
             $desarrollador->delete($id);
             echo json_encode(["message" => "Desarrollador eliminado"]);
         }
 
         public function store() {
+            if(!verificarTokenYRol("admin")) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
             $desarrollador = new Desarrollador($data['nombre'], $data['pais']);
@@ -28,6 +40,11 @@
         }
 
         public function update($id) {
+            if(!verificarTokenYRol("admin")) {
+                http_response_code(403);
+                echo json_encode(["message" => "Acceso denegado"]);
+                return;
+            }
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
             $desarrollador = new Desarrollador($data['nombre'], $data['pais']);
