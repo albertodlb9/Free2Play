@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/../models/Desarrollador.php';
     class DesarrolladorController {
         public function index() {
             $desarrollador = new Desarrollador();

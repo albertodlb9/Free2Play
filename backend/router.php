@@ -5,31 +5,36 @@
     require_once __DIR__."/controllers/plataformaController.php";
     require_once __DIR__."/controllers/videojuegoController.php";
     require_once __DIR__."/controllers/desarrolladorController.php";
+    require_once __DIR__."/controllers/comentarioController.php";
 
     $url = $_SERVER['REQUEST_URI'];
-    $pos = strpos($url, '/public/');
-    $rutaRelativa = substr($url, $pos + strlen('/public/'));
-    $api = explode('/', $rutaRelativa)[2];
-    $partesUrl = explode('/', $rutaRelativa);
-    echo json_encode($partesUrl);
-    echo json_encode($url);
-    echo json_encode($rutaRelativa);
+    $api = explode('/', $url)[2];
+    $partesUrl = explode('/', $url);
     $metodo = $_SERVER['REQUEST_METHOD'];
+    echo $url;
+    echo $partesUrl[3];
 
     if($api === 'comentarios'){
+        echo "comentarios";
         $comentarioController = new ComentarioController();
-        if($metodo === 'GET' && $url === "/api/comentarios"){
-            $comentarioController->index();
+        if($metodo == 'GET' && $url == "/api/comentarios"){
+            echo "index";
+            $comentarioController->index(); 
         } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+            echo "show";
             $id = $partesUrl[3];
             $comentarioController->show($id);
         } elseif($metodo === 'POST'){
+            echo "store";
             $comentarioController->store();
         } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+            echo "update";
             $comentarioController->update($partesUrl[3]);
         } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+            echo "destroy";
             $comentarioController->destroy($partesUrl[3]);
         } else{
+            echo "error";
             http_response_code(404);
             echo json_encode(['error' => 'Endpoint no encontrado']);
         }
@@ -51,9 +56,12 @@
             echo json_encode(['error' => 'Endpoint no encontrado']);
         }
     } elseif($api === 'usuarios'){
+        echo "usuarios";
         $usuarioController = new UsuarioController();
         if($metodo === 'GET' && $url === "/api/usuarios"){
+            echo "index";
             $usuarioController->index();
+            
         } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $usuarioController->show($id);

@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/../models/Videojuego.php';
     class VideojuegoController {
         public function index() {
             $videojuego = new Videojuego();

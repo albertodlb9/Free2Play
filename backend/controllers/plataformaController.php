@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/../models/Plataforma.php';
     class PlataformaController {
         public function index() {
             $plataforma = new Plataforma();

@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/../models/Comentario.php';
     class ComentarioController {
         public function index() {
             $comentario = new Comentario();
