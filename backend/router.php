@@ -11,8 +11,6 @@
     $api = explode('/', $url)[2];
     $partesUrl = explode('/', $url);
     $metodo = $_SERVER['REQUEST_METHOD'];
-    echo $url;
-    echo $partesUrl[3];
 
     if($api === 'comentarios'){
         echo "comentarios";

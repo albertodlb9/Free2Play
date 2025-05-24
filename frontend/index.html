@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free2Play</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FREE2PLAY</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
 </head>
 <body>
-    <p>Bienvenido a Free2Play</p>
+  <header>
+    <nav>
+      <h1 hidden>FREE2PLAY</h1>
+      <img src="./images/logo.png" alt="FREE2PLAY Logo" class="logo" />
+      <ul>
+        <li><a href="./videojuegos">Videojuegos</a></li>
+        <li><a href="./login">Iniciar sesión</a></li>
+        <li><a href="./registro">Registrarse</a></li>
+        <div class="buscador">
+            <input type="text" id="busqueda" placeholder="Buscar videojuegos..." />
+            <ul id="resultados"></ul>
+        </div>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Explora. Valora. Comparte.</h2>
+      <p>Descubre nuevos videojuegos, deja tus opiniones y conoce lo que otros jugadores piensan.</p>
+      <a href="videojuegos" class="btn">Ver videojuegos</a>
+    </section>
+
+    <section class="destacados">
+      <h3>Mejor valorados</h3>
+      <div class="juegos-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FREE2PLAY. Hecho por <a href="https://github.com/albertodlb9">@albertodlb9</a>.</p>
+  </footer>
+
+  <script src="./js/main.js"></script>
 </body>
 </html>
