@@ -35,7 +35,7 @@
         public function insert() {
             $sql = "INSERT INTO {$this->table} (nombre_usuario, nombre, apellido1, apellido2, email, password, salt, rol, telefono, direccion, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            $stmt->bind_param("ssssssissss", $this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->rol, $this->telefono, $this->direccion, $this->avatar);
+            $stmt->bind_param("ssssssissss", $this->nombreUsuario, $this->nombre, $this->apellido1, $this->apellido2, $this->email, $this->password, $this->salt,$this->rol, $this->telefono, $this->direccion, $this->avatar);
             return $stmt->execute();
         }
 

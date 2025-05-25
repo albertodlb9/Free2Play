@@ -50,12 +50,38 @@
                 echo json_encode(["message" => "Ya estás logueado"]);
                 return;
             }
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $usuario = new Usuario($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
+
+            if (!isset($_POST['nombreUsuario'], $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'],$_POST['email'], $_POST['password'])
+            ) {
+                http_response_code(400);
+                echo json_encode(["message" => $_POST['nombreUsuario']]);
+                return;
+            }
+
+            $avatarNombre = null;
+            if (isset($_FILES['avatar'])) {
+                $nombre = $_FILES['avatar']['name'];
+                $rutaTemporal = $_FILES['avatar']['tmp_name'];
+                $extension = pathinfo($nombre, PATHINFO_EXTENSION);
+                $avatarNombre = $_POST['nombreUsuario'] . '.' . $extension;
+
+                $directorioDestino = __DIR__ . '/../public/avatars/';
+                if (!is_dir($directorioDestino)) {
+                    mkdir($directorioDestino, 0777, true);
+                }
+
+                move_uploaded_file($rutaTemporal, $directorioDestino . $avatarNombre);
+            }
+
+            $password = $_POST['password'];
+            $salt = random_int(10000000,99999999); 
+            $hashedPassword = password_hash($password.$salt, PASSWORD_DEFAULT);
+            $rol = "usuario";
+            $usuario = new Usuario(null,$_POST['nombreUsuario'],$_POST['nombre'],$_POST['apellido1'],$_POST['apellido2'],$_POST['email'],$hashedPassword,$salt,$rol,$_POST['telefono'],$_POST['direccion'],$avatarNombre );
             $usuario->insert();
-            echo json_encode(["message" => "Usuario creado"]);
+            echo json_encode(["message" => "Usuario creado correctamente"]);
         }
+
 
         public function update($id) {
             $payload = verificarTokenYRol("admin","usuario");
@@ -97,7 +123,7 @@
             $usuario = new Usuario();
             $usuario = $usuario->buscarPorUsuario($nombreUsuario);
             
-            if ($usuario && password_verify($password, $usuario->password)) {
+            if ($usuario && password_verify($password.$usuario->salt, $usuario->password)) {
                 $payload = [
                     "iss" => "http://localhost",
                     "sub" => $usuario->id,

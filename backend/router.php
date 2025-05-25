@@ -64,7 +64,7 @@
         elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $usuarioController->show($id);
-        } elseif($metodo === 'POST' && count($partesUrl) === 3){
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){
             $usuarioController->store();
         } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'login'){
             $usuarioController->login();

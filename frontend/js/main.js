@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
           registro.style.display = "none"; 
           let usuarioLink = document.createElement("a");
           let li = document.createElement("li");
+          let avatar = document.createElement("img");
+          avatar.src = "http://localhost8080/php/ejs_php/Free2Play/backend/public/avatars/"+usuario.avatar;
+
           let logout = document.createElement("a");
           let liLogout = document.createElement("li");
           logout.textContent = "Cerrar sesión";
@@ -44,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
           usuarioLink.textContent = usuario.nombre_usuario;
           li.classList.add("link-usuario");
           li.appendChild(usuarioLink);
+          li.appendChild(avatar);
           navLinks.insertBefore(li, busqueda); 
           liLogout.appendChild(logout);
           navLinks.insertBefore(liLogout, busqueda);
