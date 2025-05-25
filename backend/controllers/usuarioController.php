@@ -2,6 +2,7 @@
     require_once __DIR__ . '/../models/Usuario.php';
     require_once __DIR__ . '/../config.php';
     require_once __DIR__ . '/../helpers/auth.php';
+    require_once __DIR__ . '/../vendor/autoload.php';
 
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
@@ -73,15 +74,19 @@
 
         
         public function login() {
+            header('Content-Type: application/json');
+
             if (isset($_COOKIE['token'])) {
                 http_response_code(400);
                 echo json_encode(["message" => "Ya estás logueado"]);
                 return;
             }
-            return json_encode(["message" => "Método no implementado"]);
-            // Aquí ya no usamos file_get_contents ni json_decode
-            $nombreUsuario = $_POST['username'] ?? null;
-            $password = $_POST['password'] ?? null;
+            
+            $nombreUsuario = $_POST['username'];
+            $password = $_POST['password'];
+
+            
+            
 
             if (!$nombreUsuario || !$password) {
                 http_response_code(400);
@@ -91,6 +96,7 @@
 
             $usuario = new Usuario();
             $usuario = $usuario->buscarPorUsuario($nombreUsuario);
+            
             if ($usuario && password_verify($password, $usuario->password)) {
                 $payload = [
                     "iss" => "http://localhost",
@@ -113,6 +119,11 @@
 
 
         public function logout() {
+            if (!isset($_COOKIE['token'])) {
+                http_response_code(400);
+                echo json_encode(["message" => "No estás logueado"]);
+                return;
+            }
             setcookie("token", "", time() - 3600, "/", "", false, true);
             echo json_encode(["message" => "Logout correcto"]);
         }
@@ -124,7 +135,8 @@
                     $usuario = new Usuario();
                     $usuario = $usuario->get($decodificado->sub);
                     if ($usuario) {
-                        return $usuario;
+                        echo json_encode($usuario);
+                        return;
                     } else {
                         http_response_code(401);
                         echo json_encode(["message" => "Usuario no encontrado"]);

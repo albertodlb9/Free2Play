@@ -14,26 +14,21 @@ formulario.addEventListener("submit", function (event) {
         body: formData,
         credentials: "include"
     })
-    .then(function (response) {
-        if (response.ok) {
-            //window.location.href = "http://localhost:8080/";
-            response.json().then(function (data) {
-                console.log("Inicio de sesión exitoso:", data);
-            });
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        if (data.error) {
+            errorMensaje.style.display = "block";
+            errorMensaje.textContent = data.error;
         } else {
-            return response.json().then(function (errorData) {
-                errorMensaje.textContent = errorData.message || "Error al iniciar sesión";
-                errorMensaje.style.display = "block";
-                throw new Error(errorData.message);
-            });
+            window.location.href = "http://localhost:8080/";  // Redirige al inicio
         }
     })
-    
-    .catch(function (error) {
-        console.error("Error de red:", error);
-        if (!errorMensaje.textContent) {
-            errorMensaje.textContent = "Error de red. Por favor, inténtalo de nuevo más tarde.";
-            errorMensaje.style.display = "block";
-        }
+    .catch(error => {
+        errorMensaje.style.display = "block";
+        errorMensaje.textContent = "Error al iniciar sesión. Por favor, inténtalo de nuevo.";
+        console.error("Error en la solicitud:", error);
     });
-});
+}
+);

@@ -54,7 +54,7 @@
             echo json_encode(['error' => 'Endpoint no encontrado']);
         }
     } elseif($api === 'usuarios'){
-        echo "usuarios";
+        
         $usuarioController = new UsuarioController();
         if($metodo === 'GET' && $url === "/api/usuarios"){
             $usuarioController->index();
@@ -68,6 +68,8 @@
             $usuarioController->store();
         } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'login'){
             $usuarioController->login();
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'logout'){
+            $usuarioController->logout();
         } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $usuarioController->update($partesUrl[3]);
         } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
