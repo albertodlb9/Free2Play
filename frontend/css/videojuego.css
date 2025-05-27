@@ -1,0 +1,188 @@
+
+/* Reset y estilos globales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+a {
+  color: #80cbc4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background-color: #1f1f1f;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #333;
+  margin-bottom: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 200px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  font-weight: bold;
+}
+
+/* Contenido principal centrado */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+justify-content: center;
+  padding: 3rem 1rem;
+}
+
+/* Detalles del videojuego */
+.detalle-videojuego {
+  background-color: #1c1c1c;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+}
+
+.detalle-videojuego h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.detalle-videojuego img {
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 6px;
+}
+
+.detalle-videojuego p {
+  font-size: 1rem;
+  color: #cccccc;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.estrellas {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
+
+/* Reviews */
+h3 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.contenedor-reviews {
+  max-width: 900px;
+  width: 100%;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.review {
+  border-bottom: 1px solid #333;
+  padding: 1rem 0;
+}
+
+.review h4 {
+  color: #80cbc4;
+  margin-bottom: 0.3rem;
+}
+
+.review p{
+
+  color: #dddddd;
+  margin-bottom: 0.4rem;
+}
+
+.review .estrellas
+{
+  display: flex;
+  justify-content: left;
+  gap: 0.2rem;
+}
+
+.detalle-videojuego,
+.contenedor-reviews {
+  margin: 0 auto;
+}
+.botonUpdate {
+  background-color: #80cbc4;
+  color: #121212;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.botonUpdate:hover {
+  background-color: #4db6ac;
+  transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+    margin-top: 2rem;
+  background-color: #1f1f1f;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #333;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detalle-videojuego,
+  .contenedor-reviews {
+    padding: 1rem;
+  }
+
+  .detalle-videojuego img {
+    max-width: 100%;
+  }
+}

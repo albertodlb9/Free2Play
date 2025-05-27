@@ -35,5 +35,14 @@
             return $stmt->execute();
         }
 
+        public function getReviewsByVideojuego($videojuego_id) {
+            $sql = "SELECT {$this->table}.*, usuarios.nombre_usuario as nombre_usuario FROM {$this->table}  JOIN usuarios ON reviews.usuario_id = usuarios.id WHERE videojuego_id = ?";
+            $stmt = $this->db->db->prepare($sql);
+            $stmt->bind_param("i", $videojuego_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
     }
 ?>

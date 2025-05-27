@@ -22,11 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data.error) {
         console.error("Error al verificar sesión:", data.error);
       } else {
-        console.log("Usuario logueado:", data);
         usuario = data;
-
         if(usuario){
-          console.log("hola");
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
           let busqueda = document.querySelector(".buscador");
@@ -37,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let usuarioLink = document.createElement("a");
           let li = document.createElement("li");
           let avatar = document.createElement("img");
-          avatar.src = "http://localhost8080/php/ejs_php/Free2Play/backend/public/avatars/"+usuario.avatar;
+          avatar.src = "http://localhost:8080/php/ejs_php/Free2Play/backend/public/avatars/"+usuario.avatar;
 
           let logout = document.createElement("a");
           let liLogout = document.createElement("li");
@@ -117,7 +114,7 @@ function mostrarJuegos(juegos) {
 
     tarjeta.addEventListener("click", () => {
         let idJuego = juego.id;
-        window.location.href = `http://localhost:8080/videojuego/${idJuego}`;
+        window.location.href = `http://localhost:8080/videojuego?id=${idJuego}`;
     });
   });
 }

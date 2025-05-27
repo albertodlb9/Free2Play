@@ -43,6 +43,9 @@
         } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $reviewController->show($id);
+        } elseif($metodo === 'GET' && count($partesUrl) === 5 && $partesUrl[3] === 'videojuego' && $partesUrl[4] !== ''){
+            $videojuegoId = $partesUrl[4];
+            $reviewController->getReviewsByVideojuego($videojuegoId);
         } elseif($metodo === 'POST'){
             $reviewController->store();
         } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){

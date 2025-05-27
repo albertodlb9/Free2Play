@@ -61,5 +61,11 @@
             $review->update($id);
             echo json_encode(["message" => "Review actualizado"]);
         }
+
+        public function getReviewsByVideojuego($videojuego_id) {
+            $review = new Review();
+            $reviews = $review->getReviewsByVideojuego($videojuego_id);
+            echo json_encode($reviews);
+        }
     }
 ?>

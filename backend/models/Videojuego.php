@@ -33,5 +33,19 @@
             $stmt->bind_param("sssisi", $this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->portada,$id);
             return $stmt->execute();
         }
+
+        public function getVideojugoConPlataformaYDesarrollador($id) {
+            $sql = "SELECT *, desarrolladores.nombre AS desarrollador_nombre, plataformas.nombre AS plataforma_nombre 
+                    FROM {$this->table} 
+                    JOIN desarrolladores ON videojuegos.desarrollador_id = desarrolladores.id 
+                    JOIN videojuego_plataforma ON videojuegos.id = videojuego_plataforma.videojuego_id 
+                    JOIN plataformas ON videojuego_plataforma.plataforma_id = plataformas.id 
+                    WHERE videojuegos.id = ?";
+            $stmt = $this->db->db->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $videojuego = $result->fetch_assoc();
+        }
     }
 ?>
