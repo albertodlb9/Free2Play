@@ -4,7 +4,7 @@ const errorMensaje = document.getElementById("errorMensaje");
 formulario.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    errorMensaje.style.display = "none";  // Oculta error previo
+    errorMensaje.style.display = "none";
     errorMensaje.textContent = "";
 
     const formData = new FormData(formulario);
@@ -22,7 +22,7 @@ formulario.addEventListener("submit", function (event) {
             errorMensaje.style.display = "block";
             errorMensaje.textContent = data.error;
         } else {
-            window.location.href = "http://localhost:8080/";  // Redirige al inicio
+            window.location.href = "http://localhost:8080/";
         }
     })
     .catch(error => {

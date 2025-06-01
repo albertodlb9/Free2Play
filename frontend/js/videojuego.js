@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return response.json()
     })
     .then(data => {
-      if (data.error) {
-        console.error("Error al verificar sesión:", data.error);
+      if (data.message) {
+        console.error("Error al verificar sesión:", data.message);
+        cargarReviews(idVideojuego);
       } else {
         usuario = data;
         if(usuario){
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => console.error("Error en la solicitud de cierre de sesión:", error));
           });
+          cargarReviews(idVideojuego);
         } else {
           console.log("No hay usuario logueado");
           let login = document.querySelector(".link-login");
@@ -71,15 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     })
-    .catch(error => console.error(error));
+    .catch(error =>{ 
+      console.error(error)  
+    });
+
+    
 });
     const contenedorDetalles = document.querySelector(".detalle-videojuego");
     const params = new URLSearchParams(window.location.search);
     const idVideojuego = params.get("id");
     if (contenedorDetalles) {
     fetch(`http://localhost:8080/api/videojuegos/${idVideojuego}`)
-        .then(res => {
-        return res.json();
+        .then(response => {
+        return response.json();
         })
         .then(videojuego => {
         const titulo = document.createElement("h2");
@@ -119,6 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
         console.error("Error al cargar detalles del videojuego:", error);
         });
+
+    
     }
    
     function crearEstrellas(nota) {
@@ -145,56 +153,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return estrellas;
     }
-
-      const contenedor = document.querySelector(".contenedor-reviews");
-      if (contenedor) {
-        console.log("Cargando reviews...");
-        fetch(`http://localhost:8080/api/reviews/videojuego/${idVideojuego}`)
-            .then(res => {
-                console.log("Respuesta recibida:", res);
-                return res.json();
-            })
-            .then(reviews => {
-                console.log(reviews);
+    
+      function cargarReviews(idVideojuego) {
+        const contenedor = document.querySelector(".contenedor-reviews");
+        if (contenedor) {
+          fetch(`http://localhost:8080/api/reviews/videojuego/${idVideojuego}`)
+              .then(response => {
+                  return response.json();
+              })
+              .then(reviews => {
                 reviews.forEach(review => {
-                    
-                    console.log("Procesando review:", review);
-                    console.log(review);
-                    const div = document.createElement("div");
-                    div.classList.add("review");
+                  const div = document.createElement("div");
+                  div.classList.add("review");
 
-                    const nombreUsuario = document.createElement("h4");
-                    nombreUsuario.textContent = review.nombre_usuario;
+                  const nombreUsuario = document.createElement("h4");
+                  nombreUsuario.textContent = review.nombre_usuario;
 
-                    const nota = crearEstrellas(review.puntuacion);
+                  const titulo = document.createElement("h3");
+                  titulo.textContent = review.titulo;
 
-                    const comentario = document.createElement("p");
-                    comentario.textContent = review.contenido;
+                  const nota = crearEstrellas(review.puntuacion);
 
-                    // Añadir botón solo si el usuario está logueado y es el autor
-                    if (usuario && review.usuario_id === usuario.id) {
-                        const divBoton = document.createElement("div");
-                        divBoton.classList.add("botonUpdateContainer");
+                  const comentario = document.createElement("p");
+                  comentario.textContent = review.contenido;
 
-                        const updateButton = document.createElement("button");
-                        updateButton.textContent = "Actualizar";
-                        updateButton.classList.add("botonUpdate");
-                        updateButton.addEventListener("click", () => {
-                            window.location.href = `http://localhost:8080/review?id=${review.id}`;
-                        });
+                  if (usuario && review.usuario_id === usuario.id) {
+                    const divBoton = document.createElement("div");
+                    divBoton.classList.add("botonUpdateContainer");
 
-                        divBoton.appendChild(updateButton);
-                        div.appendChild(divBoton);
-                    }
+                    const updateButton = document.createElement("button");
+                    updateButton.textContent = "Actualizar";
+                    updateButton.classList.add("botonUpdate");
+                    updateButton.addEventListener("click", () => {
+                        window.location.href = `http://localhost:8080/reviewUpdate?id=${review.id}`;
+                    });
+                    divBoton.appendChild(updateButton);
+                    div.appendChild(divBoton);
+                  }
+                  div.appendChild(titulo);
+                  div.appendChild(nombreUsuario);
+                  div.appendChild(nota);
+                  div.appendChild(comentario);
+                  contenedor.appendChild(div);
 
-                    div.appendChild(nombreUsuario);
-                    div.appendChild(nota);
-                    div.appendChild(comentario);
-                    contenedor.appendChild(div);
-            });
+                  div.addEventListener("click", () => {
+                    window.location.href = `http://localhost:8080/review?id=${review.id}`;
+                  });
+                  div.style.cursor = "pointer";
+                });
 
-        })
-        .catch(error => {
+              })
+          .catch(error => {
             console.error("Error cargando reviews:", error);
-        });
+          });
+        }
       }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FREE2PLAY</title>
+  <link rel="stylesheet" href="./css/perfil.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
+</head>
+<body>
+  <header>
+    <nav>
+      <h1 hidden>FREE2PLAY</h1>
+      <a href="./index"><img src="./images/logo.png" alt="FREE2PLAY Logo" class="logo" /></a>
+      <ul class="nav-links">
+        <li class="link-videojuegos"><a href="./videojuegos">Videojuegos</a></li>
+        <li class="link-login"><a href="./login">Iniciar sesión</a></li>
+        <li class="link-registro"><a href="./registro">Registrarse</a></li>
+        <div class="buscador">
+          <input type="text" id="busqueda" placeholder="Buscar videojuegos..." />
+          <ul id="resultados"></ul>
+        </div>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <form  class="formularioPerfil" action="">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="apellidos">Apellido 1:</label>
+        <input type="text" id="apellido1" name="apellido1" required>
+        <label for="apellido2">Apellido 2:</label> 
+        <input type="text" id="apellido2" name="apellido2">
+        <label for="nombreUsuario">Nombre de usuario:</label>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" id="contraseña" name="contraseña" required>
+        <label for="telefono">Telefono:</label>
+        <input type="tel" id="telefono" name="telefono">
+        <label for="direccion">Direccion:</label>
+        <input type="text" id="direccion" name="direccion">
+        <img  class="avatarActual" src="" alt="">
+        <label for="avatar">Avatar</label>
+        <input type="file" id="avatar" name="avatar">
+        <input type="text" id="contraseñaActual" hidden>
+        <input type="text" id="idUsuario" hidden>
+        <input type="text" id="rol" hidden>
+        <input type="number" id="salt" hidden>
+        <button type="submit" class="btn">Guardar cambios</button>
+        <button type="button" class="btn" id="eliminarCuenta">Eliminar cuenta</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FREE2PLAY. Hecho por <a href="https://github.com/albertodlb9">@albertodlb9</a>.</p>
+  </footer>
+
+  <script src="./js/perfil.js"></script>
+</body>
+</html>

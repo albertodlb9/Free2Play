@@ -206,5 +206,70 @@ footer {
   background-color: #333;
 }
 
+main {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #1c1c1c;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
 
+form label {
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="tel"],
+form input[type="file"],
+form input[type="search"] {
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+form input:focus {
+  background-color: #333;
+  outline: none;
+}
+
+form .btn {
+  width: fit-content;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+form .btn#eliminarCuenta {
+  background-color: #e57373;
+  color: #fff;
+  margin-left: 1rem;
+}
+
+form .btn#eliminarCuenta:hover {
+  background-color: #ef5350;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+
+  form {
+    gap: 1rem;
+  }
+}

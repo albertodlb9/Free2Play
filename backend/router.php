@@ -13,26 +13,22 @@
     $metodo = $_SERVER['REQUEST_METHOD'];
 
     if($api === 'comentarios'){
-        echo "comentarios";
         $comentarioController = new ComentarioController();
         if($metodo == 'GET' && $url == "/api/comentarios"){
-            echo "index";
             $comentarioController->index(); 
-        } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
-            echo "show";
+        } else if($metodo === 'GET' && count($partesUrl) === 5 && $partesUrl[3] === 'review' && $partesUrl[4] !== ''){
+            $reviewId = $partesUrl[4];
+            $comentarioController->getComentariosByReview($reviewId);
+        }elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $comentarioController->show($id);
         } elseif($metodo === 'POST'){
-            echo "store";
             $comentarioController->store();
         } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
-            echo "update";
             $comentarioController->update($partesUrl[3]);
         } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
-            echo "destroy";
             $comentarioController->destroy($partesUrl[3]);
         } else{
-            echo "error";
             http_response_code(404);
             echo json_encode(['error' => 'Endpoint no encontrado']);
         }

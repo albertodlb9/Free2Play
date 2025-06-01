@@ -44,5 +44,14 @@
             return $result->fetch_all(MYSQLI_ASSOC);
         }
 
+        public function get($id) {
+            $sql = "SELECT {$this->table}.*,usuarios.nombre_usuario FROM {$this->table} JOIN usuarios ON  {$this->table}.usuario_id = usuarios.id WHERE {$this->table}.id = ?";
+            $stmt = $this->db->db->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_object();
+        }
+
     }
 ?>

@@ -104,7 +104,7 @@
 
             if (isset($_COOKIE['token'])) {
                 http_response_code(400);
-                echo json_encode(["message" => "Ya estás logueado"]);
+                echo json_encode(["error" => "Ya estás logueado"]);
                 return;
             }
             
@@ -116,7 +116,7 @@
 
             if (!$nombreUsuario || !$password) {
                 http_response_code(400);
-                echo json_encode(["message" => "Datos incompletos"]);
+                echo json_encode(["error" => "Datos incompletos"]);
                 return;
             }
 
@@ -139,7 +139,7 @@
                 echo json_encode(["message" => "Login exitoso", "usuario" => $usuario]);
             } else {
                 http_response_code(401);
-                echo json_encode(["message" => "Credenciales incorrectas"]);
+                echo json_encode(["error" => "Credenciales incorrectas"]);
             }
         }
 

@@ -71,5 +71,11 @@
             $comentario->delete($id);
             echo json_encode(["message" => "Comentario eliminado"]);
         }
+
+        public function getComentariosByReview($review_id) {
+            $comentario = new Comentario();
+            $comentarios = $comentario->getComentariosByReview($review_id);
+            echo json_encode($comentarios);
+        }
     }
 ?>
