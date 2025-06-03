@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
           let usuarioLink = document.createElement("a");
           let li = document.createElement("li");
           let avatar = document.createElement("img");
-          avatar.src = "http://localhost:8080/php/ejs_php/Free2Play/backend/public/avatars/"+usuario.avatar;
+          avatar.src = "http://localhost:8080/api/avatars/"+usuario.avatar;
+          avatar.classList.add("avatar");
 
           let logout = document.createElement("a");
           let liLogout = document.createElement("li");
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json();
         })
         .then(videojuego => {
+          console.log("Videojuego:", videojuego);
         const titulo = document.createElement("h2");
         titulo.textContent = videojuego.titulo;
 
@@ -106,12 +108,21 @@ document.addEventListener("DOMContentLoaded", () => {
         año.textContent = `Año de lanzamiento: ${videojuego.fecha_lanzamiento}`;
 
         const plataforma = document.createElement("p");
-        plataforma.textContent = `Plataforma: ${videojuego.plataforma}`;
+        plataforma.textContent = `Plataforma: ${videojuego.plataforma_nombre}`;
 
         const desarrollador = document.createElement("p");
-        desarrollador.textContent = `Desarrollador: ${videojuego.desarrollador}`;
+        desarrollador.textContent = `Desarrollador: ${videojuego.desarrollador_nombre}`;
 
         const notaMedia = crearEstrellas(videojuego.nota_media);
+
+        const nuevaReview = document.createElement("button");
+        nuevaReview.textContent = "Nueva Review";
+        nuevaReview.classList.add("nueva-review");
+        nuevaReview.addEventListener("click", () => {
+            window.location.href = `http://localhost:8080/nuevaReview?videojuegoId=${videojuego.id}`;
+        });
+        contenedorDetalles.appendChild(nuevaReview);
+        
 
         contenedorDetalles.appendChild(titulo);
         contenedorDetalles.appendChild(imagen);
@@ -185,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateButton.textContent = "Actualizar";
                     updateButton.classList.add("botonUpdate");
                     updateButton.addEventListener("click", () => {
-                        window.location.href = `http://localhost:8080/reviewUpdate?id=${review.id}`;
+                        window.location.href = `http://localhost:8080/Review?id=${review.id}`;
                     });
                     divBoton.appendChild(updateButton);
                     div.appendChild(divBoton);

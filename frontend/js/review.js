@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
           let usuarioLink = document.createElement("a");
           let li = document.createElement("li");
           let avatar = document.createElement("img");
-          avatar.src = "http://localhost:8080/php/ejs_php/Free2Play/backend/public/avatars/"+usuario.avatar;
+          avatar.src = "http://localhost:8080/api/avatars/"+usuario.avatar;
+          avatar.classList.add("avatar");
 
           let logout = document.createElement("a");
           let liLogout = document.createElement("li");

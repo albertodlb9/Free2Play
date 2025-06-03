@@ -11,7 +11,7 @@
 
         public function show($id) {
             $videojuego = new Videojuego();
-            $videojuego = $videojuego->get($id);
+            $videojuego = $videojuego->getVideojugoConPlataformaYDesarrollador($id);
             echo json_encode($videojuego);
         }
 

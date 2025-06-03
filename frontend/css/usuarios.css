@@ -1,3 +1,4 @@
+/* perfil.css */
 
 * {
   margin: 0;
@@ -60,7 +61,6 @@ nav ul li a {
   background-color: #4db6ac;
 }
 
-
 footer {
   background-color: #1f1f1f;
   text-align: center;
@@ -96,80 +96,82 @@ footer {
   background-color: #333;
 }
 
-#resultados {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  right: 0;
-  background-color: #1f1f1f;
-  border: 1px solid #333;
-  border-radius: 5px;
-  max-height: 150px;
-  overflow-y: auto;
-  z-index: 1000;
-  display: none;
-  list-style: none;
-  padding: 0;
-  margin-top: 0.3rem;
-}
 
-#resultados li {
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  color: #e0e0e0;
-  transition: background-color 0.2s ease;
-}
-
-#resultados li:hover {
-  background-color: #333;
-}
 
 main {
   padding: 2rem;
-  max-width: 700px;
-  margin: 0 auto;
-  background-color: #1c1c1c;
+}
+
+.contenedor-usuarios {
+  overflow-x: auto;
+  margin-top: 2rem;
+  background-color: #1e1e1e;
+  padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #222;
+  color: #e0e0e0;
 }
 
-form label {
+thead {
+  background-color: #80cbc4;
+  color: #121212;
+}
+
+thead th {
+  padding: 1rem;
+  text-align: left;
   font-weight: bold;
-  color: #e0e0e0;
+  font-size: 0.95rem;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="tel"],
-form input[type="file"],
-form input[type="search"] {
-  padding: 0.7rem 1rem;
-  border-radius: 5px;
-  border: none;
+tbody tr {
+  border-bottom: 1px solid #333;
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
   background-color: #2a2a2a;
-  color: #e0e0e0;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
 }
 
-form input:focus {
-  background-color: #333;
-  outline: none;
+tbody td {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  vertical-align: middle;
 }
 
-form .btn {
-  width: fit-content;
-  padding: 0.7rem 1.5rem;
-  border: none;
+
+.editar-usuario,
+.eliminar-usuario {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+}
+
+.editar-usuario {
+  color: #121212;
+  background-color: #80cbc4;
+}
+
+.eliminar-usuario {
+  color: #fff;
+  background-color: #e53935;
+}
+
+.editar-usuario:hover {
+  background-color: #4db6ac;
+}
+
+.eliminar-usuario:hover {
+  background-color: #c62828;
 }
 
 .avatar{

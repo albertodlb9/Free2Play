@@ -1,5 +1,9 @@
 let usuario = null;
 
+    const params = new URLSearchParams(window.location.search);
+    const idPerfil = params.get("id");
+    console.log("ID del perfil:", idPerfil);
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("http://localhost:8080/api/usuarios/loged", {
       credentials: "include"
@@ -48,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
           let usuarioLink = document.createElement("a");
           let li = document.createElement("li");
           let avatar = document.createElement("img");
-          avatar.src = "http://localhost:8080/php/ejs_php/Free2Play/backend/public/avatars/"+usuario.avatar;
+          avatar.src = "http://localhost:8080/api/avatars/"+usuario.avatar;
+          avatar.classList.add("avatar");
 
           let logout = document.createElement("a");
           let liLogout = document.createElement("li");
@@ -62,9 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
           navLinks.insertBefore(li, busqueda); 
           liLogout.appendChild(logout);
           navLinks.insertBefore(liLogout, busqueda);
+
+          let formulario = document.querySelector(".formularioPerfil");
         
-          console.log("Usuario logueado:", usuario);
-            let formulario = document.querySelector(".formularioPerfil");
+          if(!idPerfil || idPerfil === usuario.id) {
+            console.log("Cargando perfil del usuario logueado");
             formulario.querySelector("#nombreUsuario").value = usuario.nombre_usuario;
             formulario.querySelector("#email").value = usuario.email;
             formulario.querySelector("#nombre").value = usuario.nombre;
@@ -72,14 +79,43 @@ document.addEventListener("DOMContentLoaded", () => {
             formulario.querySelector("#apellido2").value = usuario.apellido2;
             formulario.querySelector("#telefono").value = usuario.telefono;
             formulario.querySelector("#direccion").value = usuario.direccion;
+          }
+          else {
+            fetch(`http://localhost:8080/api/usuarios/${idPerfil}`, {
+              credentials: "include",
+              method: "GET"
+            })
+            .then(response => {
 
-
-
+              return response.json();
+            })
+            .then(data => {
+              console.log(data);
+                formulario.querySelector("#nombreUsuario").value = data.nombre_usuario;
+                formulario.querySelector("#email").value = data.email;
+                formulario.querySelector("#nombre").value = data.nombre;
+                formulario.querySelector("#apellido1").value = data.apellido1;
+                formulario.querySelector("#apellido2").value = data.apellido2;
+                formulario.querySelector("#telefono").value = data.telefono;
+                formulario.querySelector("#direccion").value = data.direccion; 
+            }
+            )
+            .catch(error => {
+              console.log("hola");
+              console.error("Error al cargar el perfil del usuario:", error);
+            });
+          }
+          
             formulario.addEventListener("submit", (e) => {
             e.preventDefault();
+            let formulario = document.querySelector(".formularioPerfil");
             let formData = new FormData(formulario);
-            fetch("http://localhost:8080/api/usuarios", {
-              method: "PUT",
+            formData.append("_method", "PUT");
+            if(!(idPerfil && idPerfil !== usuario.id)) {
+              idPerfil = usuario.id;
+            }
+            fetch("http://localhost:8080/api/usuarios/"+idPerfil, {
+              method: "POST",
               body: formData,
               credentials: "include"
             })
@@ -91,11 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
               }
             })
             .then(data => {
+              console.log(data);
               if (data.error) {
                 console.error("Error al actualizar el perfil:", data.error);
               } else {
                 console.log("Perfil actualizado correctamente");
-                window.location.href = "http://localhost:8080/perfil";
               }
             })
             .catch(error => {

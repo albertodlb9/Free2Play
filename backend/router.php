@@ -56,6 +56,7 @@
         
         $usuarioController = new UsuarioController();
         if($metodo === 'GET' && $url === "/api/usuarios"){
+
             $usuarioController->index();
         } elseif($metodo === 'GET' && $url === "/api/usuarios/loged"){
             $usuarioController->verificarToken();
@@ -69,9 +70,9 @@
             $usuarioController->login();
         } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'logout'){
             $usuarioController->logout();
-        } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_mehtod"] == "PUT"  && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $usuarioController->update($partesUrl[3]);
-        } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_mehtod"] == "DELETE" && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $usuarioController->destroy($partesUrl[3]);
         } else{
             http_response_code(404);

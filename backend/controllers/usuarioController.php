@@ -22,9 +22,10 @@
 
         public function show($id) {
             $payload = verificarTokenYRol("admin","usuario");
-            if(!$payload || $payload->sub != $id) {
+            if(!$payload || ($payload->sub != $id && $payload->data->rol != "admin")) {
+
                 http_response_code(403);
-                echo json_encode(["message" => "Acceso denegado"]);
+                echo json_encode(["message" => $payload->data->rol]);
                 return;
             }
             $usuario = new Usuario();
@@ -85,15 +86,22 @@
 
         public function update($id) {
             $payload = verificarTokenYRol("admin","usuario");
-            if(!$payload || $payload->sub != $id) {
+            if(!$payload || ($payload->sub != $id && $payload->data->rol != "admin")) {
                 http_response_code(403);
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $usuario = new Usuario($data['nombreUsuario'], $data['nombre'], $data['apellido1'], $data['apellido2'], $data['email'], $data['password'], $data['rol'], $data['telefono'], $data['direccion'], $data['avatar']);
+            $usuario = new Usuario();
+            $usuario = $usuario->get($id);
+            if(isset($_POST['password']) && $_POST['password'] !== '') {
+                $salt = random_int(10000000,99999999);
+                $password = password_hash($_POST['password'].$salt, PASSWORD_DEFAULT);
+            } else {      
+                $password = $usuario["password"];
+                $salt = $usuario["salt"];
+                $rol = $usuario["rol"];
+            }
+            $usuario = new Usuario($id,$_POST['nombreUsuario'], $_POST['nombre'], $_POST['apellido1'], $_POST['apellido2'], $_POST['email'], $password, $salt, $rol , $_POST['telefono'], $_POST['direccion'], $usuario["avatar"]);
             $usuario->update($id);
             echo json_encode(["message" => "Usuario actualizado"]);
         }

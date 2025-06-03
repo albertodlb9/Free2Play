@@ -35,17 +35,17 @@
         }
 
         public function getVideojugoConPlataformaYDesarrollador($id) {
-            $sql = "SELECT *, desarrolladores.nombre AS desarrollador_nombre, plataformas.nombre AS plataforma_nombre 
+            $sql = "SELECT {$this->table}.*, desarrolladores.nombre AS desarrollador_nombre, plataformas.nombre AS plataforma_nombre 
                     FROM {$this->table} 
                     JOIN desarrolladores ON videojuegos.desarrollador_id = desarrolladores.id 
-                    JOIN videojuego_plataforma ON videojuegos.id = videojuego_plataforma.videojuego_id 
-                    JOIN plataformas ON videojuego_plataforma.plataforma_id = plataformas.id 
-                    WHERE videojuegos.id = ?";
+                    JOIN plataformas ON videojuegos.plataforma_id = plataformas.id 
+                    WHERE {$this->table}.id = ?";
             $stmt = $this->db->db->prepare($sql);
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
             $videojuego = $result->fetch_assoc();
+            return $videojuego;
         }
     }
 ?>

@@ -148,3 +148,18 @@ footer {
   color: #888;
   font-size: 0.9rem;
 }
+
+.avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #80cbc4;
+  margin-right: 10px;
+}
+
+.link-usuario {
+  display: flex;
+  align-items: center;
+  color: #80cbc4;
+  text-decoration: none;
+}
