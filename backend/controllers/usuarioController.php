@@ -35,7 +35,7 @@
 
         public function destroy($id) {
             $payload = verificarTokenYRol("admin","usuario");
-            if(!$payload || $payload->sub != $id) {
+            if(!$payload || $payload->data->rol != "admin") {
                 http_response_code(403);
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;

@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .then(response => response.json())
           .then(usuarios => {
-            console.log("Usuarios cargados:", usuarios);
             if (usuarios.error) {
               console.error("Error al cargar usuarios:", usuarios.error);
             } else {
@@ -137,11 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 row.appendChild(acciones);
                 usuariosList.appendChild(row);
                 eliminarLink.addEventListener("click", (e) => {
-                  e.preventDefault();        
+                  e.preventDefault();      
+                  let formData = new FormData();
+                    formData.append("_method", "DELETE");  
                     fetch(`http://localhost:8080/api/usuarios/${usuario.id}`, {
                       method: "POST",
                       credentials: "include",
-                      body: new FormData().append("_method", "DELETE")
+                      body: formData
                     })
                     .then(response => {
                       if (response.ok) {
