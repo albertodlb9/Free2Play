@@ -1,5 +1,4 @@
 <?php
-    // Aqui voy a poner las rutas de mi api
     require_once __DIR__."/controllers/reviewController.php";
     require_once __DIR__."/controllers/usuarioController.php";
     require_once __DIR__."/controllers/plataformaController.php";
@@ -22,11 +21,11 @@
         }elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $comentarioController->show($id);
-        } elseif($metodo === 'POST'){
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){
             $comentarioController->store();
-        } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "PUT"  && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $comentarioController->update($partesUrl[3]);
-        } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "DELETE" && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $comentarioController->destroy($partesUrl[3]);
         } else{
             http_response_code(404);
@@ -42,11 +41,11 @@
         } elseif($metodo === 'GET' && count($partesUrl) === 5 && $partesUrl[3] === 'videojuego' && $partesUrl[4] !== ''){
             $videojuegoId = $partesUrl[4];
             $reviewController->getReviewsByVideojuego($videojuegoId);
-        } elseif($metodo === 'POST'){
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){
             $reviewController->store();
-        } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "PUT"  && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $reviewController->update($partesUrl[3]);
-        } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "DELETE" && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $reviewController->destroy($partesUrl[3]);
         } else{
             http_response_code(404);
@@ -85,11 +84,11 @@
         } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $plataformaController->show($id);
-        } elseif($metodo === 'POST'){
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){
             $plataformaController->store();
-        } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "PUT"  && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $plataformaController->update($partesUrl[3]);
-        } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "DELETE" && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $plataformaController->destroy($partesUrl[3]);
         } else{
             http_response_code(404);
@@ -102,11 +101,11 @@
         } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $videojuegoController->show($id);
-        } elseif($metodo === 'POST'){
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){
             $videojuegoController->store();
-        } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "PUT"  && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $videojuegoController->update($partesUrl[3]);
-        } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "DELETE" && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $videojuegoController->destroy($partesUrl[3]);
         } else{
             http_response_code(404);
@@ -119,11 +118,11 @@
         } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $desarrolladorController->show($id);
-        } elseif($metodo === 'POST'){
+        } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){
             $desarrolladorController->store();
-        } elseif($metodo === 'PUT' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "PUT"  && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $desarrolladorController->update($partesUrl[3]);
-        } elseif($metodo === 'DELETE' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } elseif($metodo === 'POST' && isset($_POST["_method"]) && $_POST["_method"] == "DELETE" && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $desarrolladorController->destroy($partesUrl[3]);
         } else{
             http_response_code(404);

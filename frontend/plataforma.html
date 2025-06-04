@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FREE2PLAY</title>
-  <link rel="stylesheet" href="./css/desarrolladores.css" />
+  <link rel="stylesheet" href="./css/perfil.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
 </head>
@@ -26,26 +26,19 @@
   </header>
 
   <main>
-    <div class="contenedor-desarrolladores">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Pais</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="desarrolladoresTabla">
-            </tbody>
-        </table>
-    </div>
+    <form  class="formularioPlataforma" action="" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="apellidos">Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required>
+        <button type="submit" class="btn">Guardar cambios</button>
+    </form>
   </main>
 
   <footer>
     <p>&copy; 2025 FREE2PLAY. Hecho por <a href="https://github.com/albertodlb9">@albertodlb9</a>.</p>
   </footer>
 
-  <script src="./js/desarrolladores.js"></script>
+  <script src="./js/plataforma.js"></script>
 </body>
 </html>

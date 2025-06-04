@@ -32,9 +32,7 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $desarrollador = new Desarrollador($data['nombre'], $data['pais']);
+            $desarrollador = new Desarrollador($_POST['nombre'], $_POST['pais']);
             $desarrollador->insert();
             echo json_encode(["message" => "Desarrollador creado"]);
         }
@@ -45,9 +43,7 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $desarrollador = new Desarrollador($data['nombre'], $data['pais']);
+            $desarrollador = new Desarrollador($_POST['nombre'], $_POST['pais']);
             $desarrollador->update($id);
             echo json_encode(["message" => "Desarrollador actualizado"]);
         }

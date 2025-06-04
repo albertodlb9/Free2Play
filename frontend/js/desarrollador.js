@@ -1,8 +1,7 @@
 let usuario = null;
 
-    const params = new URLSearchParams(window.location.search);
-    let idPerfil = params.get("id");
-    console.log("ID del perfil:", idPerfil);
+const params = new URLSearchParams(window.location.search);
+let idDesarrollador = params.get("id");
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("http://localhost:8080/api/usuarios/loged", {
@@ -68,76 +67,91 @@ document.addEventListener("DOMContentLoaded", () => {
           liLogout.appendChild(logout);
           navLinks.insertBefore(liLogout, busqueda);
 
-          let formulario = document.querySelector(".formularioPerfil");
-        
-          if(!idPerfil || idPerfil === usuario.id) {
-            console.log("Cargando perfil del usuario logueado");
-            formulario.querySelector("#nombreUsuario").value = usuario.nombre_usuario;
-            formulario.querySelector("#email").value = usuario.email;
-            formulario.querySelector("#nombre").value = usuario.nombre;
-            formulario.querySelector("#apellido1").value = usuario.apellido1;
-            formulario.querySelector("#apellido2").value = usuario.apellido2;
-            formulario.querySelector("#telefono").value = usuario.telefono;
-            formulario.querySelector("#direccion").value = usuario.direccion;
-          }
-          else {
-            fetch(`http://localhost:8080/api/usuarios/${idPerfil}`, {
-              credentials: "include",
-              method: "GET"
+          let formulario = document.querySelector(".formularioDesarrollador");
+          
+          if(idDesarrollador){
+            fetch(`http://localhost:8080/api/desarrolladores/${idDesarrollador}`, {
+                credentials: "include",
+                method: "GET"
             })
             .then(response => {
 
-              return response.json();
+                return response.json();
             })
             .then(data => {
-              console.log(data);
-                formulario.querySelector("#nombreUsuario").value = data.nombre_usuario;
-                formulario.querySelector("#email").value = data.email;
+                console.log(data);
                 formulario.querySelector("#nombre").value = data.nombre;
-                formulario.querySelector("#apellido1").value = data.apellido1;
-                formulario.querySelector("#apellido2").value = data.apellido2;
-                formulario.querySelector("#telefono").value = data.telefono;
-                formulario.querySelector("#direccion").value = data.direccion; 
+                formulario.querySelector("#pais").value = data.pais; 
             }
             )
             .catch(error => {
-              console.log("hola");
-              console.error("Error al cargar el perfil del usuario:", error);
+                console.error("Error al cargar el desarrollador:", error);
             });
-          }
-          
-            formulario.addEventListener("submit", (e) => {
-            e.preventDefault();
-            let formulario = document.querySelector(".formularioPerfil");
-            let formData = new FormData(formulario);
-            formData.append("_method", "PUT");
-            if(!(idPerfil && idPerfil !== usuario.id)) {
-              idPerfil = usuario.id;
+        }
+
+            if(idDesarrollador){
+                formulario.addEventListener("submit", (e) => {
+                e.preventDefault();
+                let formulario = document.querySelector(".formularioDesarrollador");
+                let formData = new FormData(formulario);
+                formData.append("_method", "PUT");
+                
+                fetch("http://localhost:8080/api/desarrolladores/"+idDesarrollador, {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Error al actualizar el perfil");
+                }
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data.error) {
+                        console.error("Error al actualizar el perfil:", data.error);
+                    } else {
+                        console.log("Perfil actualizado correctamente");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error en la solicitud de actualización del perfil:", error);
+                });
+                });
+            } else {
+                formulario.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    let formulario = document.querySelector(".formularioDesarrollador");
+                    let formData = new FormData(formulario);
+                    
+                    fetch("http://localhost:8080/api/desarrolladores/store", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "include"
+                    })
+                    .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error al crear el desarrollador");
+                    }
+                    })
+                    .then(data => {
+                    console.log(data);
+                    if (data.error) {
+                        console.error("Error al crear el desarrollador:", data.error);
+                    } else {
+                        console.log("Plataforma creada correctamente");
+                        window.location.href = "http://localhost:8080/desarrolladores";
+                    }
+                    })
+                    .catch(error => {
+                    console.error("Error en la solicitud de creación de el desarrollador:", error);
+                    });
+                });
             }
-            fetch("http://localhost:8080/api/usuarios/"+idPerfil, {
-              method: "POST",
-              body: formData,
-              credentials: "include"
-            })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error("Error al actualizar el perfil");
-              }
-            })
-            .then(data => {
-              console.log(data);
-              if (data.error) {
-                console.error("Error al actualizar el perfil:", data.error);
-              } else {
-                console.log("Perfil actualizado correctamente");
-              }
-            })
-            .catch(error => {
-              console.error("Error en la solicitud de actualización del perfil:", error);
-            });
-            });
 
           logout.addEventListener("click", (e) => {
             e.preventDefault();

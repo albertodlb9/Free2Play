@@ -1,9 +1,5 @@
 let usuario = null;
 
-    const params = new URLSearchParams(window.location.search);
-    let idPerfil = params.get("id");
-    console.log("ID del perfil:", idPerfil);
-
 document.addEventListener("DOMContentLoaded", () => {
   fetch("http://localhost:8080/api/usuarios/loged", {
       credentials: "include"
@@ -12,11 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return response.json()
     })
     .then(data => {
-      if (data.message) {
-        console.error("Error al verificar sesión:", data.message);
+      if (data.error) {
+        console.error("Error al verificar sesión:", data.error);
         window.location.href = "http://localhost:8080/login";
       } else {
         usuario = data;
+        if(!(usuario.rol === "admin")){
+            window.location.href = "http://localhost:8080/";
+        }
         if(usuario){
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
@@ -31,13 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
             liUsuarios.classList.add("link-usuarios");
             liUsuarios.appendChild(usuariosLink);
             navLinks.insertBefore(liUsuarios, busqueda);
-            let plataformasLink = document.createElement("a");
-            let liPlataformas = document.createElement("li");
-            plataformasLink.href = "http://localhost:8080/plataformas";
-            plataformasLink.textContent = "Gestion Plataformas";
-            liPlataformas.classList.add("link-plataformas");
-            liPlataformas.appendChild(plataformasLink);
-            navLinks.insertBefore(liPlataformas, busqueda);
             let desarrolladorasLink = document.createElement("a");
             let liDesarrolladoras = document.createElement("li");
             desarrolladorasLink.href = "http://localhost:8080/desarrolladores";
@@ -68,77 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
           liLogout.appendChild(logout);
           navLinks.insertBefore(liLogout, busqueda);
 
-          let formulario = document.querySelector(".formularioPerfil");
-        
-          if(!idPerfil || idPerfil === usuario.id) {
-            console.log("Cargando perfil del usuario logueado");
-            formulario.querySelector("#nombreUsuario").value = usuario.nombre_usuario;
-            formulario.querySelector("#email").value = usuario.email;
-            formulario.querySelector("#nombre").value = usuario.nombre;
-            formulario.querySelector("#apellido1").value = usuario.apellido1;
-            formulario.querySelector("#apellido2").value = usuario.apellido2;
-            formulario.querySelector("#telefono").value = usuario.telefono;
-            formulario.querySelector("#direccion").value = usuario.direccion;
-          }
-          else {
-            fetch(`http://localhost:8080/api/usuarios/${idPerfil}`, {
-              credentials: "include",
-              method: "GET"
-            })
-            .then(response => {
-
-              return response.json();
-            })
-            .then(data => {
-              console.log(data);
-                formulario.querySelector("#nombreUsuario").value = data.nombre_usuario;
-                formulario.querySelector("#email").value = data.email;
-                formulario.querySelector("#nombre").value = data.nombre;
-                formulario.querySelector("#apellido1").value = data.apellido1;
-                formulario.querySelector("#apellido2").value = data.apellido2;
-                formulario.querySelector("#telefono").value = data.telefono;
-                formulario.querySelector("#direccion").value = data.direccion; 
-            }
-            )
-            .catch(error => {
-              console.log("hola");
-              console.error("Error al cargar el perfil del usuario:", error);
-            });
-          }
-          
-            formulario.addEventListener("submit", (e) => {
-            e.preventDefault();
-            let formulario = document.querySelector(".formularioPerfil");
-            let formData = new FormData(formulario);
-            formData.append("_method", "PUT");
-            if(!(idPerfil && idPerfil !== usuario.id)) {
-              idPerfil = usuario.id;
-            }
-            fetch("http://localhost:8080/api/usuarios/"+idPerfil, {
-              method: "POST",
-              body: formData,
-              credentials: "include"
-            })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error("Error al actualizar el perfil");
-              }
-            })
-            .then(data => {
-              console.log(data);
-              if (data.error) {
-                console.error("Error al actualizar el perfil:", data.error);
-              } else {
-                console.log("Perfil actualizado correctamente");
-              }
-            })
-            .catch(error => {
-              console.error("Error en la solicitud de actualización del perfil:", error);
-            });
-            });
-
           logout.addEventListener("click", (e) => {
             e.preventDefault();
             logout.style.cursor = "pointer";
@@ -155,6 +76,71 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => console.error("Error en la solicitud de cierre de sesión:", error));
           });
+
+          fetch("http://localhost:8080/api/desarrolladores", {
+            credentials: "include"
+          })
+          .then(response => response.json())
+          .then(desarrolladores => {
+            if (desarrolladores.error) {
+              console.error("Error al cargar desarrolladores:", desarrolladores.error);
+            } else {
+                
+              let desarrolladoresList = document.querySelector("#desarrolladoresTabla");
+                desarrolladoresList.innerHTML = "";
+                desarrolladores.forEach(desarrollador => {
+                let row = document.createElement("tr");
+                let  id = document.createElement("td");
+                id.textContent = desarrollador.id;
+                row.appendChild(id);
+                let nombreDesarrollador = document.createElement("td");
+                nombreDesarrollador.textContent = desarrollador.nombre;
+                row.appendChild(nombreDesarrollador);
+                let pais = document.createElement("td");
+                pais.textContent = desarrollador.pais;
+                row.appendChild(pais);
+                let acciones = document.createElement("td");
+                let editarLink = document.createElement("a");
+                editarLink.href = `http://localhost:8080/desarrollador?id=${desarrollador.id}`;
+                editarLink.textContent = "Editar";
+                editarLink.classList.add("editar-desarrollador");
+                let eliminarLink = document.createElement("a");
+                eliminarLink.textContent = "Eliminar";
+                eliminarLink.classList.add("eliminar-desarrollador");
+                acciones.appendChild(editarLink);
+                acciones.appendChild(eliminarLink);
+                row.appendChild(acciones);
+                desarrolladoresList.appendChild(row);
+                eliminarLink.addEventListener("click", (e) => {
+                  e.preventDefault();      
+                  let formData = new FormData();
+                    formData.append("_method", "DELETE");  
+                    fetch(`http://localhost:8080/api/desarrolladores/${desarrollador.id}`, {
+                      method: "POST",
+                      credentials: "include",
+                      body: formData
+                    })
+                    .then(response => {
+                      if (response.ok) {
+                        row.remove();
+                        console.log(`desarrollador ${desarrollador.nombre} eliminado correctamente`);
+                      } else {
+                        console.error("Error al eliminar el desarrollador");
+                      }
+                    })
+                    .catch(error => console.error("Error en la solicitud de eliminación del desarrollador:", error));
+                  });   
+                });
+                    let contenedorDesarrolladores = document.querySelector(".contenedor-desarrolladores");
+                    let nuevoDesarrollador = document.createElement("a");
+                    nuevoDesarrollador.href = "http://localhost:8080/desarrollador";
+                    nuevoDesarrollador.textContent = "Nuevo Desarrollador";
+                    nuevoDesarrollador.classList.add("nuevo-desarrollador");
+                    contenedorDesarrolladores.appendChild(nuevoDesarrollador);
+
+            }
+          })
+          .catch(error => console.error("Error al cargar plataformas:", error));
         } else {
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");

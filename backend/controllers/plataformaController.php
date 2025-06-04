@@ -30,9 +30,7 @@
                 echo json_encode(array("message" => "Acceso denegado"));
                 return;
             }
-            $json = file_get_contents("php://input");
-            $data = json_decode($json, true);
-            $plataforma = new Plataforma($data['nombre'], $data['empresa']);
+            $plataforma = new Plataforma($_POST['nombre'], $_POST['empresa']);
             $plataforma->insert();
             echo json_encode(["message" => "Plataforma creada"]);
         }
@@ -43,9 +41,7 @@
                 echo json_encode(array("message" => "Acceso denegado"));
                 return;
             }
-            $json = file_get_contents("php://input");
-            $data = json_decode($json, true);
-            $plataforma = new Plataforma($data['nombre'], $data['empresa']);
+            $plataforma = new Plataforma($_POST['nombre'], $_POST['empresa']);
             $plataforma->update($id);
             echo json_encode(["message" => "Plataforma actualizada"]);
         }
