@@ -11,21 +11,32 @@
         public $puntuacion;
         public $fecha;
 
-        public function __construct($usuario_id=null, $videojuego_id=null, $titulo=null, $contenido=null, $puntuacion=null, $fecha=null) {
+        public function __construct($usuario_id=null, $videojuego_id=null, $titulo=null, $contenido=null, $puntuacion=null) {
             parent::__construct();
             $this->usuario_id = $usuario_id;
             $this->videojuego_id = $videojuego_id;
             $this->titulo = $titulo;
             $this->contenido = $contenido;
             $this->puntuacion = $puntuacion;
-            $this->fecha = $fecha;
         }
 
         public function insert() {
-            $sql = "INSERT INTO {$this->table} (usuario_id, videojuego_id, titulo, contenido, puntuacion, fecha) VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO {$this->table} (usuario_id, videojuego_id, titulo, contenido, puntuacion) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            $stmt->bind_param("iissis", $this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion, $this->fecha);
-            return $stmt->execute();
+            $stmt->bind_param("iissi", $this->usuario_id, $this->videojuego_id, $this->titulo, $this->contenido, $this->puntuacion);
+            $stmt->execute();
+
+            $sql = "SELECT AVG(puntuacion) AS media FROM {$this->table} WHERE videojuego_id = ?";
+            $stmt = $this->db->db->prepare($sql);
+            $stmt->bind_param("i", $this->videojuego_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $media = $result->fetch_assoc()['media'];
+
+            $sqlUpdate = "UPDATE videojuegos SET nota_media = ? WHERE id = ?";
+            $stmtUpdate = $this->db->db->prepare($sqlUpdate);
+            $stmtUpdate->bind_param("di", $media, $this->videojuego_id);
+            $stmtUpdate->execute();
         }
 
         public function update($id) {
@@ -52,6 +63,25 @@
             $result = $stmt->get_result();
             return $result->fetch_object();
         }
+
+        public function delete($id){
+        $sql = "DELETE FROM $this->table WHERE id = ?";
+        $stmt = $this->db->db->prepare($sql);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        
+        $sql = "SELECT AVG(puntuacion) AS media FROM {$this->table} WHERE videojuego_id = ?";
+        $stmt = $this->db->db->prepare($sql);
+        $stmt->bind_param("i", $this->videojuego_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $media = $result->fetch_assoc()['media'];
+
+        $sqlUpdate = "UPDATE videojuegos SET nota_media = ? WHERE id = ?";
+        $stmtUpdate = $this->db->db->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("di", $media, $this->videojuego_id);
+        $stmtUpdate->execute();
+    } 
 
     }
 ?>

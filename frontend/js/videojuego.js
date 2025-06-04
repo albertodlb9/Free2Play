@@ -188,29 +188,47 @@ document.addEventListener("DOMContentLoaded", () => {
                   const comentario = document.createElement("p");
                   comentario.textContent = review.contenido;
 
-                  if (usuario && review.usuario_id === usuario.id) {
+                  if (usuario.rol === "admin" || (usuario.id && review.usuario_id === usuario.id)) {
                     const divBoton = document.createElement("div");
-                    divBoton.classList.add("botonUpdateContainer");
+                    divBoton.classList.add("botonDeleteContainer");
 
-                    const updateButton = document.createElement("button");
-                    updateButton.textContent = "Actualizar";
-                    updateButton.classList.add("botonUpdate");
-                    updateButton.addEventListener("click", () => {
-                        window.location.href = `http://localhost:8080/Review?id=${review.id}`;
+                    const deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Eliminar";
+                    deleteButton.classList.add("botonDelete");
+                    deleteButton.addEventListener("click", () => {
+                      let formulario = new FormData();
+                      formulario.append("_method", "DELETE");
+                       fetch(`http://localhost:8080/api/reviews/${review.id}`, {
+                        method: "POST",
+                        credentials: "include",
+                        body: formulario
+                       })
+                        .then(response => {
+                          if (response.ok) {
+                            div.remove();
+                          } else {
+                            console.error("Error al eliminar la review");
+                          }
+                        })
+                        .catch(error => {
+                          console.error("Error en la solicitud de eliminación de la review:", error);
+                        });
+
                     });
-                    divBoton.appendChild(updateButton);
+                    divBoton.appendChild(deleteButton);
                     div.appendChild(divBoton);
                   }
+
                   div.appendChild(titulo);
                   div.appendChild(nombreUsuario);
                   div.appendChild(nota);
                   div.appendChild(comentario);
                   contenedor.appendChild(div);
 
-                  div.addEventListener("click", () => {
+                  titulo.addEventListener("click", () => {
                     window.location.href = `http://localhost:8080/review?id=${review.id}`;
                   });
-                  div.style.cursor = "pointer";
+                  titulo.style.cursor = "pointer";
                 });
 
               })

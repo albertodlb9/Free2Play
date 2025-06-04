@@ -32,8 +32,29 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            $data = json_decode(file_get_contents('php://input'), true);
-            $videojuego = new Videojuego($data['titulo'], $data['descripcion'], $data['fecha_lanzamiento'], $data['desarrollador_id'], $data['portada']);
+
+            if (isset($_FILES['portada'])) {
+                $nombre = $_FILES['portada']['name'];
+                $rutaTemporal = $_FILES['portada']['tmp_name'];
+                $extension = pathinfo($nombre, PATHINFO_EXTENSION);
+                $portadaNombre = "http://localhost:8080/api/images/".$_POST['titulo'] . '.' . $extension;
+
+                $directorioDestino = __DIR__ . '/../public/images/';
+                if (!is_dir($directorioDestino)) {
+                    mkdir($directorioDestino, 0777, true);
+                }
+
+                move_uploaded_file($rutaTemporal, $directorioDestino . $_POST['titulo'] . '.' . $extension);
+            }
+
+            $videojuego = new Videojuego(
+                $_POST['titulo'],
+                $_POST['descripcion'],
+                $_POST['fecha'],
+                $_POST['desarrolladorId'],
+                $_POST['plataformaId'],
+                $portadaNombre
+            );
             $videojuego->insert();
             echo json_encode(["message" => "Videojuego creado"]);
         }

@@ -34,11 +34,9 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-             $json = file_get_contents('php://input');
-             $data = json_decode($json, true);
-             $comentario = new Comentario($data['usuario_id'], $data['review_id'], $data['contenido'], $data['fecha']);
+             $comentario = new Comentario($_POST['usuarioId'], $_POST['reviewId'], $_POST['contenido']);
              $comentario->insert();
-    echo     json_encode(["message" => "Comentario creado"]);
+             echo json_encode(["message" => "Comentario creado"]);
         }
 
         public function update($id){
@@ -51,9 +49,7 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $comentario = new Comentario($data['usuario_id'], $data['review_id'], $data['contenido'], $data['fecha']);
+            $comentario = new Comentario($_POST['usuarioId'], $_POST['reviewId'], $_POST['contenido']);
             $comentario->update($id);
             echo json_encode(["message" => "Comentario actualizado"]);
         }

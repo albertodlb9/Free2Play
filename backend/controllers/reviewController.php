@@ -26,7 +26,7 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            
+            $review = new Review($reviewDatos->usuario_id, $reviewDatos->videojuego_id, $reviewDatos->titulo, $reviewDatos->contenido, $reviewDatos->puntuacion);
             $review->delete($id);
             echo json_encode(["message" => "Review eliminado"]);
         }
@@ -38,9 +38,7 @@
                 echo json_encode(["message" => "Acceso denegado"]);
                 return;
             }
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $review = new Review($data['usuario_id'], $data['videojuego_id'], $data['titulo'], $data['contenido'], $data['puntuacion'], $data['fecha']);
+            $review = new Review($_POST['usuarioId'], $_POST['videojuegoId'], $_POST['titulo'], $_POST['contenido'], $_POST['nota']);
             $review->insert();
             echo json_encode(["message" => "Review creado"]);
         }

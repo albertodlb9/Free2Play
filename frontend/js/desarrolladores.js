@@ -30,13 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
             liUsuarios.classList.add("link-usuarios");
             liUsuarios.appendChild(usuariosLink);
             navLinks.insertBefore(liUsuarios, busqueda);
-            let desarrolladorasLink = document.createElement("a");
-            let liDesarrolladoras = document.createElement("li");
-            desarrolladorasLink.href = "http://localhost:8080/desarrolladores";
-            desarrolladorasLink.textContent = "Gestion Desarrolladores";
-            liDesarrolladoras.classList.add("link-desarrolladores");
-            liDesarrolladoras.appendChild(desarrolladorasLink);
-            navLinks.insertBefore(liDesarrolladoras, busqueda);
+            let plataformasLink = document.createElement("a");
+            let liPlataformas = document.createElement("li");
+            plataformasLink.href = "http://localhost:8080/plataformas";
+            plataformasLink.textContent = "Gestion Plataformas";
+            liPlataformas.classList.add("link-plataformas");
+            liPlataformas.appendChild(plataformasLink);
+            navLinks.insertBefore(liPlataformas, busqueda);
+            
           }
 
           login.style.display = "none"; 

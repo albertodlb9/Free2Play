@@ -15,6 +15,7 @@ document.getElementById("formularioRegistro").addEventListener("submit", (e) => 
       document.getElementById("errorMensaje").style.display = "block";
     } else {
       console.log("Registro exitoso:", data);
+      window.location.href = "http://localhost:8080/login";
     }
   })
   .catch(error => {

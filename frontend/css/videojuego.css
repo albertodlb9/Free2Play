@@ -145,8 +145,8 @@ h3 {
 .contenedor-reviews {
   margin: 0 auto;
 }
-.botonUpdate {
-  background-color: #80cbc4;
+.botonDelete {
+  background-color: #dd4103;
   color: #121212;
   padding: 0.6rem 1.2rem;
   border: none;
@@ -159,12 +159,12 @@ h3 {
   display: inline-block;
 }
 
-.botonUpdate:hover {
-  background-color: #4db6ac;
+.botonDelete:hover {
+  background-color: #dd4103;
   transform: translateY(-2px);
 }
 
-/* Footer */
+
 footer {
     margin-top: 2rem;
   background-color: #1f1f1f;
@@ -173,18 +173,6 @@ footer {
   border-top: 1px solid #333;
   color: #888;
   font-size: 0.9rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .detalle-videojuego,
-  .contenedor-reviews {
-    padding: 1rem;
-  }
-
-  .detalle-videojuego img {
-    max-width: 100%;
-  }
 }
 
 .avatar{

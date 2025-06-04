@@ -169,9 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             botonEliminar.textContent = "Eliminar";
                             botonEliminar.classList.add("boton-eliminar");
                             botonEliminar.addEventListener("click", () => {
+                                const formData = new FormData();
+                                formData.append("_method", "DELETE");
                                 fetch(`http://localhost:8080/api/comentarios/${comentario.id}`, {
-                                    method: "DELETE",
-                                    credentials: "include"
+                                    method: "POST",
+                                    credentials: "include",
+                                    body: formData
                                 })
                                 .then(response => {
                                     if (response.ok) {

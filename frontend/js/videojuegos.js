@@ -117,6 +117,40 @@ function mostrarJuegos(juegos) {
 
     let estrellas = crearEstrellas(juego.nota_media);
 
+    console.log(usuario);
+
+    if(usuario && usuario.rol === "admin") {
+        let editarLink = document.createElement("a");
+        editarLink.href = `http://localhost:8080/editarJuego?id=${juego.id}`;
+        editarLink.textContent = "Editar";
+        editarLink.classList.add("editar-juego");
+        tarjeta.appendChild(editarLink);
+
+        let eliminarLink = document.createElement("a");
+        eliminarLink.textContent = "Eliminar";
+        eliminarLink.classList.add("eliminar-juego");
+        tarjeta.appendChild(eliminarLink);
+        eliminarLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            let formData = new FormData();
+            formData.append("_method", "DELETE");
+            fetch(`http://localhost:8080/api/videojuegos/${juego.id}`, {
+                method: "POST",
+                credentials: "include",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    tarjeta.remove();
+                    console.log(`Juego ${juego.titulo} eliminado correctamente`);
+                } else {
+                    console.error("Error al eliminar el juego");
+                }
+            })
+            .catch(error => console.error("Error en la solicitud de eliminación del juego:", error));
+        });
+    }
+
     tarjeta.appendChild(img);
     tarjeta.appendChild(titulo);
     tarjeta.appendChild(fecha);

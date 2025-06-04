@@ -8,22 +8,24 @@
         public $descripcion;
         public $fecha_lanzamiento;
         public $desarrollador_id;
+        public $plataforma_id;
         public $portada;
         public $notaMedia;
 
-        public function __construct($titulo=null, $descripcion=null, $fecha_lanzamiento=null, $desarrollador_id=null, $portada=null) {
+        public function __construct($titulo=null, $descripcion=null, $fecha_lanzamiento=null, $desarrollador_id=null, $plataforma_id=null ,$portada=null) {
             parent::__construct();
             $this->titulo = $titulo;
             $this->descripcion = $descripcion;
             $this->fecha_lanzamiento = $fecha_lanzamiento;
             $this->desarrollador_id = $desarrollador_id;
+            $this->plataforma_id = $plataforma_id;
             $this->portada = $portada;
         }
 
         public function insert() {
-            $sql = "INSERT INTO {$this->table} (titulo, descripcion, fecha_lanzamiento, desarrollador_id, portada) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO {$this->table} (titulo, descripcion, fecha_lanzamiento, desarrollador_id, plataforma_id, portada) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->db->prepare($sql);
-            $stmt->bind_param("sssis", $this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->portada);
+            $stmt->bind_param("sssiis", $this->titulo, $this->descripcion, $this->fecha_lanzamiento, $this->desarrollador_id, $this->plataforma_id, $this->portada);
             return $stmt->execute();
         }
 

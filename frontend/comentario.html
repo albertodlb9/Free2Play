@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FREE2PLAY - Nueva Reseña</title>
-  <link rel="stylesheet" href="./css/nuevaReview.css" />
+  <link rel="stylesheet" href="./css/comentario.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
 </head>
@@ -26,22 +26,15 @@
   </header>
 
   <main>
-    <form class="formularioReview" action="" method="POST">
+    <form class="formularioComentario" action="" method="POST">
       
-      <input type="hidden" name="videojuegoId" />
+      <input type="hidden" name="reviewId" />
       <input type="hidden" name="usuarioId" />
-
-      <label for="titulo">Título:</label>
-      <input type="text" id="titulo" name="titulo" required />
 
       <label for="contenido">Contenido:</label>
       <textarea id="contenido" name="contenido" required></textarea>
 
-     
-      <label for="nota">Nota:</label>
-      <input type="range" id="nota" name="nota" min="0" max="5" step="0.5" value="0">
-
-      <button type="submit" class="btn">Publicar review</button>
+      <button type="submit" class="btn">Publicar comentario</button>
     </form>
   </main>
 
@@ -49,6 +42,6 @@
     <p>&copy; 2025 FREE2PLAY. Hecho por <a href="https://github.com/albertodlb9">@albertodlb9</a>.</p>
   </footer>
 
-  <script src="./js/nuevaReview.js"></script>
+  <script src="./js/comentario.js"></script>
 </body>
 </html>

@@ -18,9 +18,9 @@
             }
 
              public function insert() {
-                $sql = "INSERT INTO {$this->table} (usuario_id, review_id, contenido, fecha) VALUES (?, ?, ?, ?)";
+                $sql = "INSERT INTO {$this->table} (usuario_id, review_id, contenido) VALUES (?, ?, ?)";
                 $stmt = $this->db->db->prepare($sql);
-                $stmt->bind_param("iiss", $this->usuario_id, $this->review_id, $this->contenido, $this->fecha);
+                $stmt->bind_param("iis", $this->usuario_id, $this->review_id, $this->contenido);
                 return $stmt->execute();
             }
 
