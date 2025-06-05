@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FREE2PLAY - Nueva Reseña</title>
-  <link rel="stylesheet" href="./css/comentario.css" />
+  <link rel="stylesheet" href="./css/nuevoJuego.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="icon" href="./images/favicon.png" type="image/x-icon" />
 </head>
@@ -17,10 +17,6 @@
         <li class="link-videojuegos"><a href="./videojuegos">Videojuegos</a></li>
         <li class="link-login"><a href="./login">Iniciar sesión</a></li>
         <li class="link-registro"><a href="./registro">Registrarse</a></li>
-        <div class="buscador">
-          <input type="text" id="busqueda" placeholder="Buscar videojuegos..." />
-          <ul id="resultados"></ul>
-        </div>
       </ul>
     </nav>
   </header>
@@ -33,7 +29,7 @@
         <input type="text" id="titulo" name="titulo" required />
 
         <label for="descripcion">Descripcion:</label>
-        <input type="textArea" id="descripcion" name="descripcion" required />
+        <textarea  id="descripcion" name="descripcion" required ></textarea>
 
         <label for="desarrolladorId">Desarrollador:</label>
         <select name="desarrolladorId" id="desarrolladorId"></select>

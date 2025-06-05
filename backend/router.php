@@ -98,7 +98,9 @@
         $videojuegoController = new VideojuegoController();
         if($metodo === 'GET' && $url === "/api/videojuegos"){
             $videojuegoController->index();
-        } elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
+        } else if($metodo === 'GET' && $url === "/api/videojuegos/videojuegosMasValorados"){
+            $videojuegoController->getVideojuegosMasValorados();
+        }elseif($metodo === 'GET' && count($partesUrl) === 4 && $partesUrl[3] !== ''){
             $id = $partesUrl[3];
             $videojuegoController->show($id);
         } elseif($metodo === 'POST' && count($partesUrl) === 4 && $partesUrl[3] === 'store'){

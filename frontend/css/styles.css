@@ -221,5 +221,29 @@ footer {
   text-decoration: none;
 }
 
+.div-grande{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.eliminar-juego {
+  display: inline-block;
+  background-color: #dd4103;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.eliminar-juego:hover {
+  background-color: #b83600;
+}
 
 

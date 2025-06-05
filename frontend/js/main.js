@@ -1,7 +1,7 @@
 let listaJuegos;
 let usuario;
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("http://localhost:8080/api/videojuegos")
+  fetch("http://localhost:8080/api/videojuegos/videojuegosMasValorados")
     .then(response => response.json())
     .then(data =>{
     listaJuegos = data;
@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if(usuario){
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
-          let busqueda = document.querySelector(".buscador");
           let navLinks = document.querySelector(".nav-links");
 
           login.style.display = "none"; 
@@ -46,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
           li.classList.add("link-usuario");
           li.appendChild(usuarioLink);
           li.appendChild(avatar);
-          navLinks.insertBefore(li, busqueda); 
+          navLinks.appendChild(li); 
           liLogout.appendChild(logout);
-          navLinks.insertBefore(liLogout, busqueda);
+          navLinks.appendChild(liLogout);
 
           logout.addEventListener("click", (e) => {
             e.preventDefault();
@@ -90,21 +89,21 @@ document.addEventListener("DOMContentLoaded", () => {
 function mostrarJuegos(juegos) {
   const contenedor = document.querySelector(".juegos-grid");
 
-  juegos.forEach(juego => {
+  for (let i = 0; i < 4; i++) {
     let tarjeta = document.createElement("div");
     tarjeta.classList.add("juego-tarjeta");
 
     let img = document.createElement("img");
-    img.src = juego.portada;
-    img.alt = juego.titulo;
+    img.src = juegos[i].portada;
+    img.alt = juegos[i].titulo;
 
     let titulo = document.createElement("h4");
-    titulo.textContent = juego.titulo;
+    titulo.textContent = juegos[i].titulo;
 
     let fecha = document.createElement("p");
-    fecha.textContent = juego.fecha_lanzamiento;
+    fecha.textContent = juegos[i].fecha_lanzamiento;
 
-    let estrellas = crearEstrellas(juego.nota_media);
+    let estrellas = crearEstrellas(juegos[i].nota_media);
 
     tarjeta.appendChild(img);
     tarjeta.appendChild(titulo);
@@ -114,10 +113,10 @@ function mostrarJuegos(juegos) {
     contenedor.appendChild(tarjeta);
 
     tarjeta.addEventListener("click", () => {
-        let idJuego = juego.id;
+        let idJuego = juegos[i].id;
         window.location.href = `http://localhost:8080/videojuego?id=${idJuego}`;
     });
-  });
+  };
 }
 
 function crearEstrellas(nota) {
@@ -144,7 +143,6 @@ function crearEstrellas(nota) {
   }
   return estrellas;
 }
-
 
 
 

@@ -70,5 +70,11 @@
             $videojuego->update($id);
             echo json_encode(["message" => "Videojuego actualizado"]);
         }
+
+        public function getVideojuegosMasValorados() {
+            $videojuego = new Videojuego();
+            $videojuegos = $videojuego->getVideojuegosMasValorados();
+            echo json_encode($videojuegos);
+        }
     }
 ?>
