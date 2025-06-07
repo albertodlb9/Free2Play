@@ -163,3 +163,22 @@ footer {
   color: #80cbc4;
   text-decoration: none;
 }
+
+.boton-eliminar {
+  background-color: #dd4103;
+  color: #121212;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.boton-eliminar:hover {
+  background-color: #dd4103;
+  transform: translateY(-2px);
+}

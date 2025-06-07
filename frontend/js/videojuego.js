@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       if (!data.message) {
         usuario = data;
+
         let login = document.querySelector(".link-login");
         let registro = document.querySelector(".link-registro");
         let busqueda = document.querySelector(".buscador");
@@ -15,6 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         login.style.display = "none";
         registro.style.display = "none";
+
+        // Eliminar links previos si existen
+        let liUsuarioExistente = document.querySelector(".link-usuario");
+        if (liUsuarioExistente) liUsuarioExistente.remove();
+        let liLogoutExistente = document.querySelector(".link-logout");
+        if (liLogoutExistente) liLogoutExistente.remove();
 
         let usuarioLink = document.createElement("a");
         let li = document.createElement("li");
@@ -49,7 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => console.error("Error en la solicitud de cierre de sesión:", error));
         });
+
       } else {
+        usuario = null;
         let login = document.querySelector(".link-login");
         let registro = document.querySelector(".link-registro");
         login.style.display = "block";
@@ -60,69 +69,86 @@ document.addEventListener("DOMContentLoaded", () => {
         if (liLogout) liLogout.remove();
         if (liUsuario) liUsuario.remove();
       }
+      cargarDetallesVideojuego();
     })
     .catch(error => {
-      console.error(error);
+      console.error("Error comprobando usuario logueado:", error);
+      usuario = null;
+      let login = document.querySelector(".link-login");
+      let registro = document.querySelector(".link-registro");
+      login.style.display = "block";
+      registro.style.display = "block";
+
+      let liLogout = document.querySelector(".link-logout");
+      let liUsuario = document.querySelector(".link-usuario");
+      if (liLogout) liLogout.remove();
+      if (liUsuario) liUsuario.remove();
+
+      cargarDetallesVideojuego();
     });
 });
 
-const contenedorDetalles = document.querySelector(".detalle-videojuego");
-const params = new URLSearchParams(window.location.search);
-const idVideojuego = params.get("id");
+function cargarDetallesVideojuego() {
+  const contenedorDetalles = document.querySelector(".detalle-videojuego");
+  const params = new URLSearchParams(window.location.search);
+  const idVideojuego = params.get("id");
 
-if (contenedorDetalles) {
-  fetch(`http://localhost:8080/api/videojuegos/${idVideojuego}`)
-    .then(response => response.json())
-    .then(videojuego => {
-      const titulo = document.createElement("h2");
-      titulo.textContent = videojuego.titulo;
+  if (contenedorDetalles && idVideojuego) {
+    fetch(`http://localhost:8080/api/videojuegos/${idVideojuego}`)
+      .then(response => response.json())
+      .then(videojuego => {
+        contenedorDetalles.innerHTML = "";
 
-      const imagen = document.createElement("img");
-      imagen.src = videojuego.portada;
-      imagen.alt = videojuego.titulo;
-      imagen.style.maxWidth = "300px";
+        const titulo = document.createElement("h2");
+        titulo.textContent = videojuego.titulo;
 
-      const tituloDescripcion = document.createElement("h3");
-      tituloDescripcion.textContent = "Descripción";
+        const imagen = document.createElement("img");
+        imagen.src = videojuego.portada;
+        imagen.alt = videojuego.titulo;
+        imagen.style.maxWidth = "300px";
 
-      const descripcion = document.createElement("p");
-      descripcion.textContent = videojuego.descripcion;
+        const tituloDescripcion = document.createElement("h3");
+        tituloDescripcion.textContent = "Descripción";
 
-      const año = document.createElement("p");
-      año.textContent = `Año de lanzamiento: ${videojuego.fecha_lanzamiento}`;
+        const descripcion = document.createElement("p");
+        descripcion.textContent = videojuego.descripcion;
 
-      const plataforma = document.createElement("p");
-      plataforma.textContent = `Plataforma: ${videojuego.plataforma_nombre}`;
+        const año = document.createElement("p");
+        año.textContent = `Año de lanzamiento: ${videojuego.fecha_lanzamiento}`;
 
-      const desarrollador = document.createElement("p");
-      desarrollador.textContent = `Desarrollador: ${videojuego.desarrollador_nombre}`;
+        const plataforma = document.createElement("p");
+        plataforma.textContent = `Plataforma: ${videojuego.plataforma_nombre}`;
 
-      const notaMedia = crearEstrellas(videojuego.nota_media);
+        const desarrollador = document.createElement("p");
+        desarrollador.textContent = `Desarrollador: ${videojuego.desarrollador_nombre}`;
 
-      if (usuario) {
-        const nuevaReview = document.createElement("button");
-        nuevaReview.textContent = "Nueva Review";
-        nuevaReview.classList.add("nueva-review");
-        nuevaReview.addEventListener("click", () => {
-          window.location.href = `http://localhost:8080/nuevaReview?videojuegoId=${videojuego.id}`;
-        });
-        contenedorDetalles.appendChild(nuevaReview);
-      }
+        const notaMedia = crearEstrellas(videojuego.nota_media);
 
-      contenedorDetalles.appendChild(titulo);
-      contenedorDetalles.appendChild(imagen);
-      contenedorDetalles.appendChild(tituloDescripcion);
-      contenedorDetalles.appendChild(descripcion);
-      contenedorDetalles.appendChild(año);
-      contenedorDetalles.appendChild(plataforma);
-      contenedorDetalles.appendChild(desarrollador);
-      contenedorDetalles.appendChild(notaMedia);
+        if (usuario) {
+          const nuevaReview = document.createElement("button");
+          nuevaReview.textContent = "Nueva Review";
+          nuevaReview.classList.add("nueva-review");
+          nuevaReview.addEventListener("click", () => {
+            window.location.href = `http://localhost:8080/nuevaReview?videojuegoId=${videojuego.id}`;
+          });
+          contenedorDetalles.appendChild(nuevaReview);
+        }
 
-      cargarReviews(idVideojuego);
-    })
-    .catch(error => {
-      console.error("Error al cargar detalles del videojuego:", error);
-    });
+        contenedorDetalles.appendChild(titulo);
+        contenedorDetalles.appendChild(imagen);
+        contenedorDetalles.appendChild(tituloDescripcion);
+        contenedorDetalles.appendChild(descripcion);
+        contenedorDetalles.appendChild(año);
+        contenedorDetalles.appendChild(plataforma);
+        contenedorDetalles.appendChild(desarrollador);
+        contenedorDetalles.appendChild(notaMedia);
+
+        cargarReviews(idVideojuego);
+      })
+      .catch(error => {
+        console.error("Error al cargar detalles del videojuego:", error);
+      });
+  }
 }
 
 function crearEstrellas(nota) {
@@ -153,6 +179,7 @@ function crearEstrellas(nota) {
 function cargarReviews(idVideojuego) {
   const contenedor = document.querySelector(".contenedor-reviews");
   if (contenedor) {
+    contenedor.innerHTML = "";
     fetch(`http://localhost:8080/api/reviews/videojuego/${idVideojuego}`)
       .then(response => response.json())
       .then(reviews => {
@@ -217,3 +244,4 @@ function cargarReviews(idVideojuego) {
       });
   }
 }
+
