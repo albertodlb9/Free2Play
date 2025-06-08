@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if(usuario){
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
-          let busqueda = document.querySelector(".buscador");
           let navLinks = document.querySelector(".nav-links");
 
           if(usuario.rol === "admin"){
@@ -29,14 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
             plataformasLink.textContent = "Gestion Plataformas";
             liPlataformas.classList.add("link-plataformas");
             liPlataformas.appendChild(plataformasLink);
-            navLinks.insertBefore(liPlataformas, busqueda);
+            navLinks.appendChild(liPlataformas);
             let desarrolladorasLink = document.createElement("a");
             let liDesarrolladoras = document.createElement("li");
             desarrolladorasLink.href = "http://localhost:8080/desarrolladores";
             desarrolladorasLink.textContent = "Gestion Desarrolladores";
             liDesarrolladoras.classList.add("link-desarrolladores");
             liDesarrolladoras.appendChild(desarrolladorasLink);
-            navLinks.insertBefore(liDesarrolladoras, busqueda);
+            navLinks.appendChild(liDesarrolladoras);
           }
 
           login.style.display = "none"; 
@@ -56,9 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
           li.classList.add("link-usuario");
           li.appendChild(usuarioLink);
           li.appendChild(avatar);
-          navLinks.insertBefore(li, busqueda); 
+          navLinks.appendChild(li); 
           liLogout.appendChild(logout);
-          navLinks.insertBefore(liLogout, busqueda);
+          navLinks.appendChild(liLogout);
 
           logout.addEventListener("click", (e) => {
             e.preventDefault();

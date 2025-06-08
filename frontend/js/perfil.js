@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if(usuario){
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
-          let busqueda = document.querySelector(".buscador");
           let navLinks = document.querySelector(".nav-links");
 
           if(usuario.rol === "admin"){
@@ -30,21 +29,21 @@ document.addEventListener("DOMContentLoaded", () => {
             usuariosLink.textContent = "Gestion Usuarios";
             liUsuarios.classList.add("link-usuarios");
             liUsuarios.appendChild(usuariosLink);
-            navLinks.insertBefore(liUsuarios, busqueda);
+            navLinks.appendChild(liUsuarios);
             let plataformasLink = document.createElement("a");
             let liPlataformas = document.createElement("li");
             plataformasLink.href = "http://localhost:8080/plataformas";
             plataformasLink.textContent = "Gestion Plataformas";
             liPlataformas.classList.add("link-plataformas");
             liPlataformas.appendChild(plataformasLink);
-            navLinks.insertBefore(liPlataformas, busqueda);
+            navLinks.appendChild(liPlataformas);
             let desarrolladorasLink = document.createElement("a");
             let liDesarrolladoras = document.createElement("li");
             desarrolladorasLink.href = "http://localhost:8080/desarrolladores";
             desarrolladorasLink.textContent = "Gestion Desarrolladores";
             liDesarrolladoras.classList.add("link-desarrolladores");
             liDesarrolladoras.appendChild(desarrolladorasLink);
-            navLinks.insertBefore(liDesarrolladoras, busqueda);
+            navLinks.appendChild(liDesarrolladoras);
           }
 
           login.style.display = "none"; 
@@ -64,9 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
           li.classList.add("link-usuario");
           li.appendChild(usuarioLink);
           li.appendChild(avatar);
-          navLinks.insertBefore(li, busqueda); 
+          navLinks.appendChild(li); 
           liLogout.appendChild(logout);
-          navLinks.insertBefore(liLogout, busqueda);
+          navLinks.appendChild(liLogout);
 
           let formulario = document.querySelector(".formularioPerfil");
         

@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if(usuario){
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
-          let busqueda = document.querySelector(".buscador");
           let navLinks = document.querySelector(".nav-links");
           let escribirComentario = document.querySelector(".nuevoComentario");
 
@@ -44,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
           li.classList.add("link-usuario");
           li.appendChild(usuarioLink);
           li.appendChild(avatar);
-          navLinks.insertBefore(li, busqueda); 
+          navLinks.appendChild(li);
           liLogout.appendChild(logout);
-          navLinks.insertBefore(liLogout, busqueda);
+          navLinks.appendChild(liLogout);
 
           logout.addEventListener("click", (e) => {
             e.preventDefault();

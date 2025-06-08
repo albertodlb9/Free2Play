@@ -1,4 +1,4 @@
-/* Estilos generales ya aplicados */
+
 * {
   margin: 0;
   padding: 0;
@@ -69,7 +69,6 @@ footer {
   font-size: 0.9rem;
 }
 
-/* MAIN - Formulario nuevo videojuego */
 main {
   display: flex;
   justify-content: center;
@@ -128,7 +127,6 @@ main {
   min-height: 100px;
 }
 
-/* Botón */
 #formularioVideojuego .btn {
   margin-top: 2rem;
   background-color: #80cbc4;
@@ -145,7 +143,6 @@ main {
   background-color: #4db6ac;
 }
 
-/* Footer */
 footer {
   background-color: #1f1f1f;
   text-align: center;

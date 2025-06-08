@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if(usuario){
           let login = document.querySelector(".link-login");
           let registro = document.querySelector(".link-registro");
-          let busqueda = document.querySelector(".buscador");
           let navLinks = document.querySelector(".nav-links");
 
           login.style.display = "none"; 
@@ -39,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
           li.classList.add("link-usuario");
           li.appendChild(usuarioLink);
           li.appendChild(avatar);
-          navLinks.insertBefore(li, busqueda); 
+          navLinks.appendChild(li);
           liLogout.appendChild(logout);
-          navLinks.insertBefore(liLogout, busqueda);
+          navLinks.appendChild(liLogout);
 
           let formulario = document.querySelector(".formularioReview");
           formulario.videojuegoId.value = idVideojuego;

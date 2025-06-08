@@ -11,13 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let login = document.querySelector(".link-login");
         let registro = document.querySelector(".link-registro");
-        let busqueda = document.querySelector(".buscador");
         let navLinks = document.querySelector(".nav-links");
 
         login.style.display = "none";
         registro.style.display = "none";
 
-        // Eliminar links previos si existen
         let liUsuarioExistente = document.querySelector(".link-usuario");
         if (liUsuarioExistente) liUsuarioExistente.remove();
         let liLogoutExistente = document.querySelector(".link-logout");
@@ -38,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
         li.classList.add("link-usuario");
         li.appendChild(usuarioLink);
         li.appendChild(avatar);
-        navLinks.insertBefore(li, busqueda);
+        navLinks.appendChild(li);
         liLogout.appendChild(logout);
-        navLinks.insertBefore(liLogout, busqueda);
+        navLinks.appendChild(liLogout);
 
         logout.addEventListener("click", e => {
           e.preventDefault();

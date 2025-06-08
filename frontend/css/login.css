@@ -46,13 +46,12 @@ nav ul li a {
   font-weight: bold;
 }
 
-/* MAIN LOGIN */
 main {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 4rem 1rem;
-  min-height: calc(100vh - 160px); /* Ajuste según el tamaño del header+footer */
+  min-height: calc(100vh - 160px); 
 }
 
 .login-container {
@@ -118,22 +117,6 @@ input:focus {
   font-size: 0.9rem;
 }
 
-.social-login {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.social-login .btn.google {
-  background-color: #db4437;
-  color: #fff;
-  margin-top: 0.5rem;
-}
-
-.social-login .btn.google:hover {
-  background-color: #c33d2f;
-}
-
-/* FOOTER */
 footer {
   background-color: #1f1f1f;
   text-align: center;
